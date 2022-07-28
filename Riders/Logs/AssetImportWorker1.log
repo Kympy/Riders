@@ -1,0 +1,361 @@
+Using pre-set license
+Built from '2021.3/staging' branch; Version is '2021.3.6f1 (7da38d85baf6) revision 8233869'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 15761 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Users/User/Desktop/Riders/Riders
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+62165
+Successfully changed project path to: C:/Users/User/Desktop/Riders/Riders
+C:/Users/User/Desktop/Riders/Riders
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 73.66 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.6f1 (7da38d85baf6)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/User/Desktop/Riders/Riders/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: AMD Radeon(TM) Graphics (ID=0x1638)
+    Vendor:   ATI
+    VRAM:     7880 MB
+    Driver:   30.0.13023.4001
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56504
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.014928 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 65.25 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.579 seconds
+Domain Reload Profiling:
+	ReloadAssembly (579ms)
+		BeginReloadAssembly (76ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (391ms)
+			LoadAssemblies (73ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (87ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (20ms)
+			SetupLoadedEditorAssemblies (233ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (55ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (65ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (76ms)
+				ProcessInitializeOnLoadMethodAttributes (35ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.009160 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\Riders\Riders\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\Riders\Riders\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.824 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2824ms)
+		BeginReloadAssembly (1998ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1906ms)
+		EndReloadAssembly (726ms)
+			LoadAssemblies (93ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (257ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (36ms)
+			SetupLoadedEditorAssemblies (321ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (86ms)
+				ProcessInitializeOnLoadAttributes (183ms)
+				ProcessInitializeOnLoadMethodAttributes (22ms)
+				AfterProcessingInitializeOnLoad (13ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3368 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (111.0 KB). Loaded Objects now: 3827.
+Memory consumption went from 115.9 MB to 115.8 MB.
+Total: 2.902300 ms (FindLiveObjects: 0.235100 ms CreateObjectMapping: 0.172500 ms MarkObjects: 2.412500 ms  DeleteObjects: 0.081700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008766 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\Riders\Riders\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\Riders\Riders\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.52 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.075 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1076ms)
+		BeginReloadAssembly (198ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (61ms)
+		EndReloadAssembly (760ms)
+			LoadAssemblies (135ms)
+			RebuildTransferFunctionScriptingTraits (1ms)
+			SetupTypeCache (295ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (39ms)
+			SetupLoadedEditorAssemblies (287ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (23ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (71ms)
+				ProcessInitializeOnLoadAttributes (155ms)
+				ProcessInitializeOnLoadMethodAttributes (21ms)
+				AfterProcessingInitializeOnLoad (15ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.23 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3363 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 20 unused Assets / (78.2 KB). Loaded Objects now: 3830.
+Memory consumption went from 115.8 MB to 115.7 MB.
+Total: 2.753700 ms (FindLiveObjects: 0.198900 ms CreateObjectMapping: 0.141800 ms MarkObjects: 2.343200 ms  DeleteObjects: 0.068500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 769357.783842 seconds.
+  path: Assets/Final Form Studio/Cars/Sedan-car-01/wheel.fbx
+  artifactKey: Guid(7fc5e78f5bf33a04e9490bb5454fc968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/Sedan-car-01/wheel.fbx using Guid(7fc5e78f5bf33a04e9490bb5454fc968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e5943dde88cc76b0a923627d9571365') in 0.460544 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 10.231998 seconds.
+  path: Assets/Final Form Studio/Cars/Sedan-car-01/materials_textures/body-matte-parts.mat
+  artifactKey: Guid(0600b60f2501f9f4680e105c3725b63b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/Sedan-car-01/materials_textures/body-matte-parts.mat using Guid(0600b60f2501f9f4680e105c3725b63b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e6f7c6424fe3896f75fd062fda37ff7') in 0.016986 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Final Form Studio/Cars/Sedan-car-01/materials_textures/rim-albedo.png
+  artifactKey: Guid(23ca3f9ce212d644dabeb5684bd113ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/Sedan-car-01/materials_textures/rim-albedo.png using Guid(23ca3f9ce212d644dabeb5684bd113ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14c5d05d77bdce66e4f00751ffd6271b') in 0.026144 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 35.882544 seconds.
+  path: Assets/Final Form Studio/Cars/_common-textures/leds-rear.mat
+  artifactKey: Guid(54ec127daf14ab945936a7282f19effe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/_common-textures/leds-rear.mat using Guid(54ec127daf14ab945936a7282f19effe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '765d45e4af2b433954c6340bbadee561') in 0.009894 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Final Form Studio/Cars/_common-textures/tire_diffuse.png
+  artifactKey: Guid(3214a9cd8ff207446951e63707ca0d65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/_common-textures/tire_diffuse.png using Guid(3214a9cd8ff207446951e63707ca0d65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c0398b631fd8d06147ab626092835d4') in 0.010814 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Final Form Studio/Cars/_common-textures/orange-lights.mat
+  artifactKey: Guid(d3e03ede2aad4b8459875c68d65929c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/_common-textures/orange-lights.mat using Guid(d3e03ede2aad4b8459875c68d65929c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '585bc1d11318845d7d62047e27ae7680') in 0.010892 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Final Form Studio/Cars/_common-textures/white-lights.mat
+  artifactKey: Guid(2293ba2c3f385a046b10ac966bf8c75c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cars/_common-textures/white-lights.mat using Guid(2293ba2c3f385a046b10ac966bf8c75c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61bdaea90d7bb5134ebf43983383b946') in 0.010719 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.217938 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Meshes/Plane.prefab
+  artifactKey: Guid(e0b39f08edf968f48ae2e81e21bbb69b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Meshes/Plane.prefab using Guid(e0b39f08edf968f48ae2e81e21bbb69b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6634b648fe3a1be688052de1cc9a8f2') in 0.010753 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_c.FBX
+  artifactKey: Guid(5a88a0b58af7ee140838ea6edfdc9585) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_c.FBX using Guid(5a88a0b58af7ee140838ea6edfdc9585) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '773a2aff242bd61898d84d7b1dc0a9c1') in 0.032078 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_d.FBX
+  artifactKey: Guid(ff345eb821740b944a74f1037a4004a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_d.FBX using Guid(ff345eb821740b944a74f1037a4004a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e41e39a2bf575726de232c44ccfb69ac') in 0.025515 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_a.FBX
+  artifactKey: Guid(635d01881084cb545bf305255bc2b4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Meshes/rock1_a.FBX using Guid(635d01881084cb545bf305255bc2b4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69f88297cb320406bdb13c54f2f97fbd') in 0.025593 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.202124 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/cliff_low_cliff1_MetallicSmoothness.png
+  artifactKey: Guid(ce230efc2ebd52b4cb2a171e6eedb11c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/cliff_low_cliff1_MetallicSmoothness.png using Guid(ce230efc2ebd52b4cb2a171e6eedb11c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aefae62f569afbac145b5277d9c6fb8b') in 0.024096 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf_t.png
+  artifactKey: Guid(ec34630d4d1e53845800357d80605131) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf_t.png using Guid(ec34630d4d1e53845800357d80605131) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '148b08f5a2cfbaf5c8fb8240dfa673b7') in 0.039805 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf.png
+  artifactKey: Guid(829c896c9493e5048beb36fb6acda24d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf.png using Guid(829c896c9493e5048beb36fb6acda24d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef562d2f18a5c4c0f6681d95d0afb611') in 0.011521 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/rocks1_AlbedoTransparency.png
+  artifactKey: Guid(0ec350594a16a95408d3d326d90e4d6b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/rocks1_AlbedoTransparency.png using Guid(0ec350594a16a95408d3d326d90e4d6b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0c2baa9c2e58e6c9d1e0422a88d3818') in 0.015322 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm-tree-leaves.mat
+  artifactKey: Guid(99f66698ff7562745a97a8ca3724b747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm-tree-leaves.mat using Guid(99f66698ff7562745a97a8ca3724b747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81f44cf286ceeb47b6c333a20d200abb') in 0.013072 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000073 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02_s.png
+  artifactKey: Guid(748f50f580180334f8812cac7a13b2c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02_s.png using Guid(748f50f580180334f8812cac7a13b2c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '254c131061ac946844adf6323e0dec1f') in 0.017971 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02_n.png
+  artifactKey: Guid(f365b4a16608bae4da3e6ead54169e41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02_n.png using Guid(f365b4a16608bae4da3e6ead54169e41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5adf982836bb21e3b4cfafa96b22b3d6') in 0.018086 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02.png
+  artifactKey: Guid(8af4a107ce553754996bb464b87c450e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/palm02.png using Guid(8af4a107ce553754996bb464b87c450e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '800b6df83b8a6f24ae92eb326fba878d') in 0.012689 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf_s.png
+  artifactKey: Guid(afaa22d1f02d1e14fb222cc41f5c403a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/date palm leaf_s.png using Guid(afaa22d1f02d1e14fb222cc41f5c403a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '250b659c1c8826502548481d7452137d') in 0.010458 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.670954 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/water-met.png
+  artifactKey: Guid(ce9964ccc52922643ae46a18cdf11d5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/water-met.png using Guid(ce9964ccc52922643ae46a18cdf11d5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37519513b5f8f31ee4aad166e89044d3') in 0.022881 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/water.mat
+  artifactKey: Guid(c0c356e2fc8e5f643ae41a7e4d23f9f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Props/Materials and Textures/water.mat using Guid(c0c356e2fc8e5f643ae41a7e4d23f9f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91187cf7603d7420d85874467db06352') in 0.044850 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.301722 seconds.
+  path: Assets/Final Form Studio/Cliff-scene/Settings/SSSSettings.asset
+  artifactKey: Guid(26bdddf49760c61438938733f07fa2a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Final Form Studio/Cliff-scene/Settings/SSSSettings.asset using Guid(26bdddf49760c61438938733f07fa2a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e66ef6136cf9c8433c426de20e14d5a') in 0.004537 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
