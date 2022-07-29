@@ -8,6 +8,8 @@ TagManager:
   - RFW
   - LBW
   - RBW
+  - CM
+  - BackLight
   layers:
   - Default
   - TransparentFX

@@ -5,15 +5,17 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public GameObject LookTarget;
-    private Camera car_Camera;
-    private void Awake()
+    private float smoothSpeed =10f;
+    private Vector3 desiredPosition;
+    private Quaternion desiredRotation;
+    private Vector3 offset = new Vector3(0f, 3f, 0f);
+
+    private void FixedUpdate()
     {
-        car_Camera = GetComponent<Camera>();
-    }
-    private void Update()
-    {
-        car_Camera.transform.LookAt(LookTarget.transform);
-        car_Camera.transform.position = LookTarget.transform.position + new Vector3(0f, 4f, -7f);
-        //car_Camera.transform.Rotate()
+        desiredPosition = LookTarget.transform.TransformPoint(0f, 2f, -5f);
+        desiredRotation = Quaternion.LookRotation(LookTarget.transform.position + offset - transform.position);
+
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, smoothSpeed * Time.deltaTime);
     }
 }
