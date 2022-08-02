@@ -46,6 +46,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
 
     protected GameObject visualWheel = null; // visual wheels
     protected Rigidbody rigidBody; // Car rigidbody
+    public Rigidbody GetRigidbody { get { return rigidBody; } }
     protected GameObject centerOfMass; // Car center of mass
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
     protected List<SkidMark> Skids = new List<SkidMark>(); // Skid Marks List
@@ -53,11 +54,17 @@ public class Car : MonoBehaviour // Normal Base Car Class
 
     protected virtual void Init()
     {
+        MaxVelocity = 210f;
+        MaxWheelAngle = 45;
+        MaxMotorPower = 1901f; // It means motorTorque
+        MaxBrakePower = 3000f; // Brake
+
+    } // Init GUI and controller
+    protected virtual void InitGUI()
+    {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
         arrowPointer = GameObject.Find("Arrow").GetComponent<Image>();
-
-        LogitechGSDK.LogiSteeringInitialize(false);
-    } // Init GUI and controller
+    }
     protected virtual void RigidBodySetUp()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -66,6 +73,8 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Get Rigidbody and center of mass
     protected virtual void InitWheel()
     {
+        LogitechGSDK.LogiSteeringInitialize(false);
+
         WheelInfo Front = new WheelInfo();
         WheelInfo Back = new WheelInfo();
 
@@ -128,7 +137,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
 
         if (Input.GetKey(KeyCode.Space))
         {
-            Brake = 3500f;
+            Brake = MaxBrakePower;
             Motor = 0f;
             Skids[0].Left_Skid.emitting = true;
             Skids[0].Right_Skid.emitting = true;
@@ -189,6 +198,11 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // G29 Input
     protected virtual void FFModeMovement()
     {
+        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
+        {
+            Debug.Log("max");
+            Motor = 0;
+        }
         // ========== FF ========= //
         // Steer
         Wheels[0].Left_Wheel.steerAngle = Steering;
@@ -199,15 +213,14 @@ public class Car : MonoBehaviour // Normal Base Car Class
         // Brake
         Wheels[0].Left_Wheel.brakeTorque = Brake;
         Wheels[0].Right_Wheel.brakeTorque = Brake;
-
+    } // FF Car Setting
+    protected virtual void RRModeMovement()
+    {
         if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
         {
             Debug.Log("max");
             Motor = 0;
         }
-    } // FF Car Setting
-    protected virtual void RRModeMovement()
-    {
         // ========== RR ========= //
         // Steer
         Wheels[0].Left_Wheel.steerAngle = Steering;
@@ -218,12 +231,6 @@ public class Car : MonoBehaviour // Normal Base Car Class
         // Brake
         Wheels[1].Left_Wheel.brakeTorque = Brake;
         Wheels[1].Right_Wheel.brakeTorque = Brake;
-
-        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
-        {
-            Debug.Log("max");
-            Motor = 0;
-        }
     }
     protected virtual void GUIUpdate()
     {

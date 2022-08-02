@@ -826,7 +826,6 @@ GameObject:
   - component: {fileID: 4129913870759032073}
   - component: {fileID: 9015510553197610934}
   - component: {fileID: 4791082732480223655}
-  - component: {fileID: 8595638081064100515}
   m_Layer: 0
   m_Name: RMCarDemo_Body_Col
   m_TagString: Untagged
@@ -899,20 +898,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8595638081064100515
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028524037896703543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1712421413437435200, guid: 910ce5061873aac4bbc105e69936bb9a, type: 3}
 --- !u!1 &1029017277736178905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2282,7 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
@@ -2401,9 +2386,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5613350830740630217}
+  - component: {fileID: 2778653086953293514}
   m_Layer: 0
   m_Name: RMCarDemo_Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2424,6 +2410,19 @@ Transform:
   m_Father: {fileID: 5609014226243880501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2778653086953293514
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2579016018758040453}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.2, z: 4.7}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &2599568066631955860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2557,7 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
@@ -3653,7 +3652,7 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
@@ -5420,7 +5419,7 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
@@ -8120,7 +8119,7 @@ GameObject:
   - component: {fileID: 3438370391668881811}
   m_Layer: 0
   m_Name: Camaro
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8134,7 +8133,7 @@ Transform:
   m_GameObject: {fileID: 8266421019767115494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5613350830740630217}
