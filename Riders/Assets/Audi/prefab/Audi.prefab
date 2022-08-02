@@ -1215,7 +1215,7 @@ GameObject:
   m_Layer: 0
   m_Name: LF_Wheel
   m_TagString: LFW
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1279,7 +1279,7 @@ GameObject:
   m_Layer: 0
   m_Name: RF_Wheel
   m_TagString: RFW
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1498,9 +1498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d655fbd496807e448b24bfb52619d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSteeringAngle: 45
-  MaxMotorPower: 2000
-  brakePower: 0
 --- !u!65 &4917312262764765238
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1693,7 +1690,7 @@ GameObject:
   m_Layer: 0
   m_Name: LB_Wheel
   m_TagString: LBW
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1756,7 +1753,7 @@ GameObject:
   m_Layer: 0
   m_Name: RB_Wheel
   m_TagString: RBW
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
