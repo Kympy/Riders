@@ -17,12 +17,6 @@ public class DropDownSetting : MonoBehaviour
         drop.options.Clear();
         
     }
-    /*
-    private void OnMouseDown()
-    {
-        drop.transform.GetChild(2).gameObject.SetActive(open);
-    }
-    */
     public void ShowDropDown()
     {
         drop.transform.GetChild(2).gameObject.SetActive(open);
