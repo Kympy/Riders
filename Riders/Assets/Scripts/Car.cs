@@ -59,12 +59,12 @@ public class Car : MonoBehaviour // Normal Base Car Class
         MaxMotorPower = 1901f; // It means motorTorque
         MaxBrakePower = 3000f; // Brake
 
-    } // Init GUI and controller
+    } // Init State Value
     protected virtual void InitGUI()
     {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
         arrowPointer = GameObject.Find("Arrow").GetComponent<Image>();
-    }
+    } //Init GUI
     protected virtual void RigidBodySetUp()
     {
         rigidBody = GetComponent<Rigidbody>();
