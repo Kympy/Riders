@@ -90,6 +90,17 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Skids[0].Left_Skid.emitting = false;
         Skids[0].Right_Skid.emitting = false;
     } // Initialize Skid marks
+    protected virtual void InitRRSkidMarks()
+    {
+        SkidMark BackSkid = new SkidMark();
+        Skids.Add(BackSkid);
+
+        // Foward Wheels Skid Marks
+        Skids[0].Left_Skid = GameObject.FindGameObjectWithTag("LBW").GetComponentInChildren<TrailRenderer>();
+        Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RBW").GetComponentInChildren<TrailRenderer>();
+        Skids[0].Left_Skid.emitting = false;
+        Skids[0].Right_Skid.emitting = false;
+    }
     protected virtual void InitBrakeLight()
     {
         // Brake BackLight
@@ -195,6 +206,25 @@ public class Car : MonoBehaviour // Normal Base Car Class
             Motor = 0;
         }
     } // FF Car Setting
+    protected virtual void RRModeMovement()
+    {
+        // ========== RR ========= //
+        // Steer
+        Wheels[0].Left_Wheel.steerAngle = Steering;
+        Wheels[0].Right_Wheel.steerAngle = Steering;
+        // Motor
+        Wheels[1].Left_Wheel.motorTorque = Motor;
+        Wheels[1].Right_Wheel.motorTorque = Motor;
+        // Brake
+        Wheels[1].Left_Wheel.brakeTorque = Brake;
+        Wheels[1].Right_Wheel.brakeTorque = Brake;
+
+        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
+        {
+            Debug.Log("max");
+            Motor = 0;
+        }
+    }
     protected virtual void GUIUpdate()
     {
         myVeloctiy = rigidBody.velocity.magnitude * 3.6f; // Convert m/s -> km/s with multiply 3.6

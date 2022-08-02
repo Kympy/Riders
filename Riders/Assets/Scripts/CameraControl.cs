@@ -10,6 +10,10 @@ public class CameraControl : MonoBehaviour
     private Quaternion desiredRotation;
     private Vector3 offset = new Vector3(0f, 3f, 0f);
 
+    private void Start()
+    {
+        LookTarget = GameObject.FindGameObjectWithTag("Player").gameObject;
+    }
     private void FixedUpdate()
     {
         desiredPosition = LookTarget.transform.TransformPoint(0f, 2f, -5f);

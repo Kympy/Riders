@@ -1276,6 +1276,10 @@ PrefabInstance:
       value: Audi
       objectReference: {fileID: 0}
     - target: {fileID: 5144755251539965607, guid: 5e1f1e4eda7b3f84a95afae22bd7c87e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144755251539965607, guid: 5e1f1e4eda7b3f84a95afae22bd7c87e, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
