@@ -44,13 +44,14 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected Image arrowPointer; // GUI Arrow
     protected TextMeshProUGUI speedUI; // Display Velocity GUI
 
-    protected GameObject visualWheel = null; // visual wheels
     protected Rigidbody rigidBody; // Car rigidbody
     public Rigidbody GetRigidbody { get { return rigidBody; } }
     protected GameObject centerOfMass; // Car center of mass
+
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
     protected List<SkidMark> Skids = new List<SkidMark>(); // Skid Marks List
     protected GameObject brakeLight = null; // Back light object
+    protected GameObject visualWheel = null; // visual wheels
 
     protected virtual void Init()
     {
