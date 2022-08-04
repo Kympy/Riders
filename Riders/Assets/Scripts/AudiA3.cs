@@ -15,6 +15,7 @@ public class AudiA3 : Car // FF
     private void Awake()
     {
         Init();
+        InitKey();
         InitGUI();
         RigidBodySetUp();
         InitWheel();
@@ -24,7 +25,7 @@ public class AudiA3 : Car // FF
     private void FixedUpdate()
     {
         //G29Control();
-        KeyBoardControl();
+        //KeyBoardControl();
         FFModeMovement();
 
         MoveVisualWheel(Wheels[0].Left_Wheel);
@@ -33,6 +34,6 @@ public class AudiA3 : Car // FF
         MoveVisualWheel(Wheels[1].Right_Wheel);
 
         GUIUpdate();
-        Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
+        //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
     }
 }

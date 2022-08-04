@@ -14,6 +14,7 @@ public class Camaro : Car // FR
     private void Awake()
     {
         Init();
+        InitKey();
         InitGUI();
         RigidBodySetUp();
         InitWheel();
@@ -23,7 +24,7 @@ public class Camaro : Car // FR
     private void FixedUpdate()
     {
         //G29Control();
-        KeyBoardControl();
+        //KeyBoardControl();
         RRModeMovement();
 
         MoveVisualWheel(Wheels[0].Left_Wheel);
@@ -32,6 +33,6 @@ public class Camaro : Car // FR
         MoveVisualWheel(Wheels[1].Right_Wheel);
 
         GUIUpdate();
-        Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
+        //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
     }
 }

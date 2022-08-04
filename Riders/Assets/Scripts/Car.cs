@@ -18,7 +18,6 @@ public class Car : MonoBehaviour // Normal Base Car Class
         public TrailRenderer Left_Skid;
         public TrailRenderer Right_Skid;
     }
-
     protected float Steering = 0; // Handle Angle
     protected float Motor = 0; // Motor Power
     protected float Brake = 0; // Brake Power
@@ -27,8 +26,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected float MaxMotorPower = 1901f; // It means motorTorque
     protected float MaxBrakePower = 3000f; // Brake Maximum power
 
-
-    protected int MaxHandleAngle = 450; // G29 휠 한쪽 최대 각도 Real Controller Max Angle
+    protected int MaxHandleAngle = 450; // G29 Real Controller Max Angle (One Side)
     protected float Int2HandleAngle; // Int => Handle Angle
     protected float Handle2WheelAngle; // Handle Angle => Wheel Angle
     protected float Int2Throttle; // Int => Throttle Pedal value
@@ -59,8 +57,16 @@ public class Car : MonoBehaviour // Normal Base Car Class
         MaxWheelAngle = 45;
         MaxMotorPower = 1901f; // It means motorTorque
         MaxBrakePower = 3000f; // Brake
-
     } // Init State Value
+    protected virtual void InitKey() 
+    {
+        // Init KeyBoard
+        InputManager.Instance.KeyAction -= KeyBoardControl;
+        InputManager.Instance.KeyAction += KeyBoardControl;
+        // Init Controller
+        //InputManager.Instance.KeyAction -= G29Control;
+        //InputManager.Instance.KeyAction += G29Control;
+    }// Initialize Control Method
     protected virtual void InitGUI()
     {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
@@ -93,13 +99,12 @@ public class Car : MonoBehaviour // Normal Base Car Class
     {
         SkidMark FrontSkid = new SkidMark();
         Skids.Add(FrontSkid);
-
         // Foward Wheels Skid Marks
-        Skids[0].Left_Skid = GameObject.FindGameObjectWithTag("LFW").GetComponentInChildren<TrailRenderer>();
-        Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RFW").GetComponentInChildren<TrailRenderer>();
-        Skids[0].Left_Skid.emitting = false;
+        Skids[0].Left_Skid = GameObject.FindGameObjectWithTag("LFW").GetComponentInChildren<TrailRenderer>(); // Left
+        Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RFW").GetComponentInChildren<TrailRenderer>(); // Right
+        Skids[0].Left_Skid.emitting = false; // Visible false on start
         Skids[0].Right_Skid.emitting = false;
-    } // Initialize Skid marks
+    } // Initialize FF Type Skid marks
     protected virtual void InitRRSkidMarks()
     {
         SkidMark BackSkid = new SkidMark();
@@ -110,7 +115,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RBW").GetComponentInChildren<TrailRenderer>();
         Skids[0].Left_Skid.emitting = false;
         Skids[0].Right_Skid.emitting = false;
-    }
+    }// Initialize RR Type Skid marks
     protected virtual void InitBrakeLight()
     {
         // Brake BackLight
@@ -123,7 +128,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Handle2WheelAngle = MaxHandleAngle / MaxWheelAngle; // 450 / 45 >> Convert Handle Degree to Wheel Degree
         Int2Throttle = 32767 / MaxMotorPower; // Convert Int to Throttle pedal value
         Int2Brake = 32767 / MaxBrakePower; // Convert Int to Brake pedal value
-    } // Initalize some values
+    } // Initalize some values used on G29 Wheel
     protected virtual void MoveVisualWheel(WheelCollider wheel)
     {
         wheel.GetWorldPose(out colliderWorldPos, out colliderWorldRot);
@@ -170,7 +175,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
             {
                 if (controller.rgbButtons[i] == 128)
                 {
-                    if (i == 12) // 1 gear
+                    if (i == 12) // 1st gear
                     {
                         Debug.Log("1 st Gear Input");
                     }
@@ -189,12 +194,11 @@ public class Car : MonoBehaviour // Normal Base Car Class
         }
         else if (!LogitechGSDK.LogiIsConnected(0))
         {
-            Debug.Log("PLEASE PLUG IN A STEERING WHEEL OR A FORCE FEEDBACK CONTROLLER");
+            Debug.Log("LOGITECH DEVICE NOT CONNECTED");
         }
         else
         {
-
-
+            Debug.Log("Device Connected, but some errors occured");
         }
     } // G29 Input
     protected virtual void FFModeMovement()
@@ -232,7 +236,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
         // Brake
         Wheels[1].Left_Wheel.brakeTorque = Brake;
         Wheels[1].Right_Wheel.brakeTorque = Brake;
-    }
+    }// RR Car Setting
     protected virtual void GUIUpdate()
     {
         myVeloctiy = rigidBody.velocity.magnitude * 3.6f; // Convert m/s -> km/s with multiply 3.6

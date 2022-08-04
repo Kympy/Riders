@@ -102,7 +102,6 @@ public class LogitechSteeringWheel : MonoBehaviour
             }
 
             //Button status :
-
             buttonStatus = "Button pressed : \n\n";
             for (int i = 0; i < 128; i++)
             {
