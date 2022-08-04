@@ -13,7 +13,6 @@ public class InputManager : SingleTon<InputManager>
         {
             // Change Control Method To Wheel
         }
-
         if (Input.anyKey) // KeyBoard Input
         {
             keyAction.Invoke();

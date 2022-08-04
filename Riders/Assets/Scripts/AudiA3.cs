@@ -19,12 +19,13 @@ public class AudiA3 : Car // FF
         InitGUI();
         RigidBodySetUp();
         InitWheel();
+        InitConstValue();
         InitFFSkidMarks();
         InitBrakeLight();
     }
     private void FixedUpdate()
     {
-        //G29Control();
+        G29Control();
         //KeyBoardControl();
         FFModeMovement();
 
@@ -34,6 +35,5 @@ public class AudiA3 : Car // FF
         MoveVisualWheel(Wheels[1].Right_Wheel);
 
         GUIUpdate();
-        //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
     }
 }

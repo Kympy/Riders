@@ -18,9 +18,11 @@ public class Car : MonoBehaviour // Normal Base Car Class
         public TrailRenderer Left_Skid;
         public TrailRenderer Right_Skid;
     }
-    protected float Steering = 0; // Handle Angle
-    protected float Motor = 0; // Motor Power
-    protected float Brake = 0; // Brake Power
+    protected float Steering = 0f; // Handle Angle
+    protected float Motor = 0f; // Motor Power
+    protected float Brake = 0f; // Brake Power
+    protected bool FrontGear = false;
+    protected bool BackGear = false;
     
     protected int MaxWheelAngle = 45; // Wheels can rotate between maximum value
     protected float MaxMotorPower = 1901f; // It means motorTorque
@@ -61,11 +63,11 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected virtual void InitKey() 
     {
         // Init KeyBoard
-        InputManager.Instance.KeyAction -= KeyBoardControl;
-        InputManager.Instance.KeyAction += KeyBoardControl;
+        //InputManager.Instance.KeyAction -= KeyBoardControl;
+        //InputManager.Instance.KeyAction += KeyBoardControl;
         // Init Controller
-        //InputManager.Instance.KeyAction -= G29Control;
-        //InputManager.Instance.KeyAction += G29Control;
+        InputManager.Instance.KeyAction -= G29Control;
+        InputManager.Instance.KeyAction += G29Control;
     }// Initialize Control Method
     protected virtual void InitGUI()
     {
@@ -124,10 +126,10 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Initialize Brake Light
     protected virtual void InitConstValue()
     {
-        Int2HandleAngle = 32767 / MaxHandleAngle; // 32767 / 450 >> Convert Int to Handle Degree
+        Int2HandleAngle = 32767f / MaxHandleAngle; // 32767 / 450 >> Convert Int to Handle Degree
         Handle2WheelAngle = MaxHandleAngle / MaxWheelAngle; // 450 / 45 >> Convert Handle Degree to Wheel Degree
-        Int2Throttle = 32767 / MaxMotorPower; // Convert Int to Throttle pedal value
-        Int2Brake = 32767 / MaxBrakePower; // Convert Int to Brake pedal value
+        Int2Throttle = 65534 / MaxMotorPower; // Convert Int to Throttle pedal value
+        Int2Brake = 65534 / MaxBrakePower; // Convert Int to Brake pedal value
     } // Initalize some values used on G29 Wheel
     protected virtual void MoveVisualWheel(WheelCollider wheel)
     {
@@ -167,26 +169,45 @@ public class Car : MonoBehaviour // Normal Base Car Class
 
             LogitechGSDK.LogiPlaySpringForce(0, 0, 40, 30); // ForceFeedback Setting
 
+            if (FrontGear)
+            {
+                Motor = Mathf.Round((-controller.lY + Mathf.Abs(controller.lY)) / Int2Throttle); // Throttle
+            }
+            else if (BackGear)
+            {
+                Motor = -Mathf.Round((-controller.lY + Mathf.Abs(controller.lY)) / Int2Throttle); // Throttle
+            }
+            else Motor = 0f;
+
             Steering = controller.lX / Int2HandleAngle / Handle2WheelAngle; // Handle
-            Motor = Mathf.Round(-controller.lY / Int2Throttle + MaxMotorPower); // Throttle
-            Brake = Mathf.Round(-controller.lRz / Int2Brake + MaxBrakePower); // Brake
+            Brake = Mathf.Round((-controller.lRz + Mathf.Abs(controller.lRz)) / Int2Brake); // Brake
 
             for (int i = 0; i < 128; i++) // Gear Button Input
             {
                 if (controller.rgbButtons[i] == 128)
                 {
-                    if (i == 12) // 1st gear
+                    if (i == 12) // Forward gear
                     {
+                        FrontGear = true;
+                        BackGear = false;
                         Debug.Log("1 st Gear Input");
                     }
                     else if (i == 18) // Back gear
                     {
+                        FrontGear = false;
+                        BackGear = true;
                         Debug.Log("Backward Gear Input");
-                        Motor = -Motor;
                     }
                 }
             }
-            if (Brake > 1) // If Brake ON
+
+            if (controller.rgbButtons[12] != 128 && controller.rgbButtons[18] != 128) // Gear N
+            {
+                FrontGear = false;
+                BackGear = false;
+            }
+
+            if (Brake > 0.1f) // If Brake ON
             {
                 brakeLight.SetActive(true); // BackLight ON
             }
@@ -245,5 +266,13 @@ public class Car : MonoBehaviour // Normal Base Car Class
         rotationAngle = Mathf.Lerp(0, 315, speedFactor);
 
         arrowPointer.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotationAngle));
+        Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  Velocity : " + rigidBody.velocity.magnitude * 3.6f);
     } // Speedometer Update
+    private void OnDestroy()
+    {
+        if(LogitechGSDK.LogiIsConnected(0))
+        {
+            Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());
+        }
+    }
 }

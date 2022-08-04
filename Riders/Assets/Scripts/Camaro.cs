@@ -18,12 +18,13 @@ public class Camaro : Car // FR
         InitGUI();
         RigidBodySetUp();
         InitWheel();
+        InitConstValue();
         InitRRSkidMarks();
         InitBrakeLight();
     }
     private void FixedUpdate()
     {
-        //G29Control();
+        G29Control();
         //KeyBoardControl();
         RRModeMovement();
 
@@ -33,6 +34,5 @@ public class Camaro : Car // FR
         MoveVisualWheel(Wheels[1].Right_Wheel);
 
         GUIUpdate();
-        //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  V : " + rigidBody.velocity.magnitude * 3.6f);
     }
 }
