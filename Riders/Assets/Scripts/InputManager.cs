@@ -5,6 +5,7 @@ using System;
 
 public class InputManager : SingleTon<InputManager>
 {
+    /*
     private Action keyAction;
     public Action KeyAction { get { return keyAction; } set { keyAction = value; } }
     public void OnUpdate()
@@ -19,4 +20,5 @@ public class InputManager : SingleTon<InputManager>
         }
         else return; // When Any Key Input Is Null
     }
+    */
 }

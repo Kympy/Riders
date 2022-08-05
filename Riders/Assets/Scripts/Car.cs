@@ -6,57 +6,79 @@ using UnityEngine.UI;
 
 public class Car : MonoBehaviour // Normal Base Car Class
 {
-    #region 로지텍 컨트롤러
+    #region 로지텍 G29 컨트롤러 / Logitech G29 Controller
     protected LogitechGSDK.LogiControllerPropertiesData properties; // Logitech Controller
     protected LogitechGSDK.DIJOYSTATE2ENGINES controller;
     #endregion
+
+    #region 좌, 우 바퀴 / Left, Right Wheel
     protected class WheelInfo // Left and Right Wheels
     {
         public WheelCollider Left_Wheel;
         public WheelCollider Right_Wheel;
     }
+    #endregion
+
+    #region 좌, 우 바퀴자국 / Left, Right Skid Mark
     protected class SkidMark // Left and Right Skid Marks
     {
         public TrailRenderer Left_Skid;
         public TrailRenderer Right_Skid;
     }
+    #endregion
+
+    #region 자동차 움직임 변수 / Car Movement Values
     protected float Steering = 0f; // Handle Angle
     protected float Motor = 0f; // Motor Power
     protected float Brake = 0f; // Brake Power
-    protected bool FrontGear = false;
-    protected bool BackGear = false;
-    
+    protected float myVeloctiy = 0f; // current speed
+    protected bool FrontGear = false; // Front Gear
+    protected bool BackGear = false; // Rear Gear
+    #endregion
+
+    #region 움직임 변수의 최대 값 / Maximum Movement Values
     protected int MaxWheelAngle = 45; // Wheels can rotate between maximum value
     protected float MaxMotorPower = 1901f; // It means motorTorque
     protected float MaxBrakePower = 3000f; // Brake Maximum power
+    protected float MaxVelocity = 210f; // Max speed km/s
+    #endregion
 
+    #region 컨트롤러 입력 값을 사용하기 위한 상수 / The Const Value For Using Controller
     protected int MaxHandleAngle = 450; // G29 Real Controller Max Angle (One Side)
     protected float Int2HandleAngle; // Int => Handle Angle
     protected float Handle2WheelAngle; // Handle Angle => Wheel Angle
     protected float Int2Throttle; // Int => Throttle Pedal value
     protected float Int2Brake; // Int => Brake pedal value
+    #endregion
 
-    protected float myVeloctiy = 0f; // current speed
+    #region 비주얼 휠 구동을 위한 휠 콜라이더 정보 / Wheel Collider Pos, Rot For Visual Wheel Movement
     protected Vector3 colliderWorldPos; // Wheel collider position
     protected Quaternion colliderWorldRot; // Wheel collider rotation
-    protected float MaxVelocity = 210f; // Max speed km/s
+    #endregion
 
+    #region 속도계 작동 변수 / Speedometer Variables
     protected float speedFactor = 0f; // current speed / max speed => percentage
     protected float rotationAngle = 0f; // speedometer arrow pointer angle
     protected Image arrowPointer; // GUI Arrow
     protected TextMeshProUGUI speedUI; // Display Velocity GUI
+    #endregion
 
+    #region 자동차의 물리 변수 / The Variable Of Car Rigidbody
     protected Rigidbody rigidBody; // Car rigidbody
     public Rigidbody GetRigidbody { get { return rigidBody; } }
     protected GameObject centerOfMass; // Car center of mass
+    #endregion
 
+    #region 자동차 구성요소 목록 / Lists Of The Car Component
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
     protected SkidMark Skids = new SkidMark(); // Skid Marks
     protected GameObject brakeLight = null; // Back light object
     protected GameObject visualWheel = null; // visual wheels
+    #endregion
 
-    private int myController = 0;
+    private int myController = 0; // My Controller ID >> Will Set By GameSetting Class
 
+    #region 자동차의 기본 속성 초기화, 오브젝트 초기화, 변수 초기화 / Initialize Base Information Called Only Once
     protected virtual void Init()
     {
         MaxVelocity = 210f;
@@ -65,6 +87,9 @@ public class Car : MonoBehaviour // Normal Base Car Class
         MaxBrakePower = 3000f; // Brake
         myController = GameSetting.Instance.CurrentController; // Get Controller ID
     } // Init State Value
+
+    #region 사용안함 / Never Use
+    /*
     protected virtual void InitKey() 
     {
         switch(GameSetting.Instance.CurrentController)
@@ -92,6 +117,8 @@ public class Car : MonoBehaviour // Normal Base Car Class
                 }
         }
     }// Initialize Control Method >>> NOT USE BECAUSE OF THE BUG
+    */
+    #endregion
     protected virtual void InitGUI()
     {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
@@ -149,6 +176,9 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Int2Throttle = 65534 / MaxMotorPower; // Convert Int to Throttle pedal value
         Int2Brake = 65534 / MaxBrakePower; // Convert Int to Brake pedal value
     } // Initalize some values used on G29 Wheel
+    #endregion
+
+    #region 컨트롤 타입에 따른 자동차에 실제 움직임 구현 / The Real Car Movement Operated By My Controller
     protected virtual void MoveVisualWheel(WheelCollider wheel)
     {
         wheel.GetWorldPose(out colliderWorldPos, out colliderWorldRot);
@@ -290,6 +320,9 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Wheels[1].Left_Wheel.brakeTorque = Brake;
         Wheels[1].Right_Wheel.brakeTorque = Brake;
     }// RR Car Setting
+    #endregion
+
+    #region 속도계 UI 관련 업데이트 / Speedometer Update Function
     protected virtual void GUIUpdate()
     {
         myVeloctiy = rigidBody.velocity.magnitude * 3.6f; // Convert m/s -> km/s with multiply 3.6
@@ -300,11 +333,12 @@ public class Car : MonoBehaviour // Normal Base Car Class
         arrowPointer.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotationAngle));
         //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  Velocity : " + rigidBody.velocity.magnitude * 3.6f);
     } // Speedometer Update
+    #endregion
     private void OnDestroy()
     {
-        if (LogitechGSDK.LogiIsConnected(0))
+        if (LogitechGSDK.LogiIsConnected(0)) // When Destroy Object, the controller shut down together and alert
         {
             Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());
         }
-    }
+    } // ShutDown Controller
 }

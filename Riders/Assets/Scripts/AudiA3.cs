@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class AudiA3 : Car // FF
 {
-    protected override void Init()
+    protected override void Init() // This Car's Own Values
     {
         MaxVelocity = 210f;
         MaxWheelAngle = 45;

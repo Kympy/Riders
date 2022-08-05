@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CheckCollider : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // When Player Enter Start Timer Trigger
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player") // Is Player?
         {
-            switch(GameManager.Instance.MySceneIndex)
+            switch(GameManager.Instance.MySceneIndex) // Which Map?
             {
                 case 2: // Straight Scene
                     {
@@ -17,13 +17,13 @@ public class CheckCollider : MonoBehaviour
                     }
                 case 3: // Dirt Scene
                     {
-                        if (GameManager.Instance.isFirstLap == false)
+                        if (GameManager.Instance.isFirstLap == false) // Start Lap
                         {
                             StartCoroutine(GameManager.Instance.LapCycleTimer());
                             GameManager.Instance.isFirstLap = true;
                             Debug.Log("LAP START!!");
                         }
-                        else
+                        else // Finish Lap
                         {
                             GameManager.Instance.isFinishLap = true;
                             Debug.Log("LAP FINISH!!");

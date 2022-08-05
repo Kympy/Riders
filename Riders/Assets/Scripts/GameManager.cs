@@ -6,14 +6,16 @@ using UnityEngine.SceneManagement;
 using System;
 public class GameManager : SingleTon<GameManager>
 {
-    // ========= Timer ============ //
+    #region 게임 플레이 타이머 변수 / Game Play Timer Variables
     private float timer = 0f; // Normal Timer
     private WaitForSeconds OneSecond = new WaitForSeconds(1.0f); // 1 sec
     private int threeTime = 3;
     private int min = 0;
     private int sec = 0;
     private int ms = 0;
-    // ========= Game Control Variable ===== //
+    #endregion
+
+    #region 게임 설정 & 진행 변수 / The Variables Game Setting And Play Control
     [SerializeField]
     private bool isGaming = false; // Use To Control Key Input Update
     public bool IsGaming { get { return isGaming; } }
@@ -22,13 +24,6 @@ public class GameManager : SingleTon<GameManager>
     public bool isFirstLap { get { return FirstLap; } set { FirstLap = value; } }
     private bool FinishLap = false; // Use to when finish lap
     public bool isFinishLap { get { return FinishLap; } set { FinishLap = value; } }
-    // ========== Play Info ========== //
-    private TextMeshProUGUI StartTimer; // 3 2 1 Go Timer Text
-    private TextMeshProUGUI LapTimer; // Count Lap Time
-    [SerializeField]
-    private Car player = null; // Current Player Script
-    private GameObject PlayerPrefab = null;
-    private GameObject StartPosition = null;
     // ===========ID Info ========== //
     [SerializeField]
     private int CurrentSceneIndex = 0; // Get Current Scene Build Index
@@ -39,14 +34,27 @@ public class GameManager : SingleTon<GameManager>
     [SerializeField]
     private int SelectedMapID = 0; // My map Index
     public int MyMapID { get { return SelectedMapID; } set { SelectedMapID = value; } }
-
+    // The Record Management Script
     private RecordManager record = new RecordManager();
+    
+    [SerializeField]
+    private Car player = null; // Current Player Script
+    private GameObject PlayerPrefab = null; // Selected Player Prefab
+    private GameObject StartPosition = null; // Player Start Position
+    #endregion
+
+    #region 게임 플레이 UI 변수 / UI Variables
+    // ========== Play Info ========== //
+    private TextMeshProUGUI StartTimer; // 3 2 1 Go Timer Text
+    private TextMeshProUGUI LapTimer; // Count Lap Time
+    #endregion
+
     public void InitAwake()
     {
-        InitDPI();
+        InitDPI(); // Window Size
         SceneManager.activeSceneChanged -= WhenSceneChanged;
-        SceneManager.activeSceneChanged += WhenSceneChanged; // Scene Change Event
-    }
+        SceneManager.activeSceneChanged += WhenSceneChanged; // Scene Change Event Called Once
+    } // Add Scene Change Event & Init Window
     private void Update()
     {
         /*
@@ -55,7 +63,9 @@ public class GameManager : SingleTon<GameManager>
             InputManager.Instance.OnUpdate(); // Input Update
         }
         */
-    }
+    } // Never Use
+
+    #region 씬 변경에 따른 플레이 정보 초기화
     private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Get current scene build index
@@ -126,6 +136,9 @@ public class GameManager : SingleTon<GameManager>
         FirstLap = false; FinishLap = false;
         StartCoroutine(CountDown()); // 3 2 1
     }
+    #endregion
+
+    #region 게임 플레이 타이머 코루틴 / Coroutines about Game Play Timer
     private IEnumerator CountDown() // 3, 2, 1, Go Timer
     {
         while(true)
@@ -169,30 +182,32 @@ public class GameManager : SingleTon<GameManager>
     {
         while(true)
         {
-            if (FinishLap)
+            if (FinishLap) // When Finish Lap
             {
-                StopCoroutine(LapCycleTimer());
-                record.RecordCount++;
-                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  " + player.gameObject.name);
-                break;
+                StopCoroutine(LapCycleTimer()); // Stop Lap Time Coroutine
+                record.RecordCount++; // And Plus 1 Record Count
+                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  " + player.gameObject.name); // Save Record at RecordManager Class
+                break; // Break While
             }
             yield return null;
             timer += Time.deltaTime;
             ms = Mathf.FloorToInt((timer - Mathf.FloorToInt(timer)) * 100); // ex) 3.546321 >> 0.546321 >> 54.6321 >> 54
-            sec = Mathf.FloorToInt(timer);
+            sec = Mathf.FloorToInt(timer); // second
             if(sec == 60)
             {
                 sec = 0;
-                min++;
-                timer = 0f;
+                min++; // Miniute
+                timer = 0f; // Reset timer
             }
-            LapTimer.text = "LAP : " + min.ToString("00") + ":" + sec.ToString("00") + ":" + ms.ToString("00");
+            LapTimer.text = "LAP : " + min.ToString("00") + ":" + sec.ToString("00") + ":" + ms.ToString("00"); // Display Lap Time on UI
         }
     }
-    private void InstantiatePrefabAndPosition()
+    #endregion
+
+    private void InstantiatePrefabAndPosition() // Create Player Object at Start Position
     {
         StartPosition = GameObject.Find("StartPosition").gameObject;
-        switch (MyCarID)
+        switch (MyCarID) // Get My Model ID
         {
             case 0: // Audi A3
                 {
@@ -221,28 +236,28 @@ public class GameManager : SingleTon<GameManager>
         else if (PlayerPrefab == null) Debug.LogError("Player Prefab is Null!!");
         else if (GameObject.FindGameObjectWithTag("Player") != null) Debug.Log("Player is already created.");
     }
-    private void InitDPI()
+    private void InitDPI() // Set the window size
     {
-        switch(GameSetting.Instance.CurrentDPI)
+        switch(GameSetting.Instance.CurrentDPI) // Get from Game Setting Class
         {
             case 0: // 1920 1080
                 {
-                    Screen.SetResolution(1920, 1080, isFullScreen);
+                    Screen.SetResolution(1920, 1080, isFullScreen); // FHD
                     break;
                 }
             case 1:
                 {
-                    Screen.SetResolution(1600, 900, isFullScreen);
+                    Screen.SetResolution(1600, 900, isFullScreen); // HD+
                     break;
                 }
             case 2:
                 {
-                    Screen.SetResolution(1280, 720, isFullScreen);
+                    Screen.SetResolution(1280, 720, isFullScreen); // HD
                     break;
                 }
             default:
                 {
-                    Screen.SetResolution(1920, 1080, isFullScreen);
+                    Screen.SetResolution(1920, 1080, isFullScreen); // Default Value
                     break;
                 }
         }

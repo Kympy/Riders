@@ -6,21 +6,22 @@ using UnityEngine.UI;
 using TMPro;
 public class ButtonManager : SingleTon<ButtonManager>
 {
-     /*
-     *  -- Scene Build Index --
-     *  0 : MainScene
-     *  1 : SelectScene
-     *  2 : StraightScene
-     *  3 : DirtScene
-     *  4 : Record
-     *  5 : Setting
-    
-      -- Car Index --
-     0 : Audi A3
-     1 : Porsche 911 Carrera
-     2 : Camaro RS
-      
-      */
+    /*
+    *  -- Scene Build Index --
+    *  0 : MainScene
+    *  1 : SelectScene
+    *  2 : StraightScene
+    *  3 : DirtScene
+    *  4 : Record
+    *  5 : Setting
+
+     -- Car Index --
+    0 : Audi A3
+    1 : Porsche 911 Carrera
+    2 : Camaro RS
+
+     */
+    #region UI 요소들 / UI Elements
     private Button mainButton = null;
     private Button exitButton = null;
     private Button recordButton = null;
@@ -29,8 +30,10 @@ public class ButtonManager : SingleTon<ButtonManager>
     private Button mapButton = null;
     private TMP_Dropdown DPIdrop = null;
     private TMP_Dropdown Ctrldrop = null;
-    private List<string> optionName = new List<string>();
+    private List<string> optionName = new List<string>(); // Used to Add Dropdown Options
+    #endregion
 
+    #region 각각의 버튼을 찾아 리스너를 추가 / Find My Button And AddListener
     // ================= Init Button =========== //
     private void InitMainButton()
     {
@@ -62,6 +65,9 @@ public class ButtonManager : SingleTon<ButtonManager>
         settingButton = GameObject.Find("Setting").GetComponent<Button>();
         settingButton.onClick.AddListener(() => Load(5));
     }
+    #endregion
+
+    #region 각각의 씬 마다 필요한 버튼들을 초기화 / Initialize All Buttons On Each Scene
     // ==================== Called at GameManager When Scene Changed ====== //
     public void InitMainSceneButton() // Initialize Main Scene's Buttons
     {
@@ -102,13 +108,13 @@ public class ButtonManager : SingleTon<ButtonManager>
         {
             optionName.Add("Logitech G29");
         }
-        AddOptions(Ctrldrop);
+        AddOptions(Ctrldrop); // Add
         optionName.Clear();
 
         optionName.Add("1920 X 1080");
         optionName.Add("1600 X 900");
         optionName.Add("1280 X 720");
-        AddOptions(DPIdrop);
+        AddOptions(DPIdrop); // Add
         optionName.Clear();
 
         Ctrldrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentController = Ctrldrop.value; });
@@ -128,6 +134,9 @@ public class ButtonManager : SingleTon<ButtonManager>
     {
         InitMainButton();
     }
+    #endregion
+
+    #region 자동차와 맵 선택 정보 저장 / Save the ID of Car And Map
     public void SelectCar(int carID) // When Car Selected, the car ID is saved at the GameManager
     {
         GameManager.Instance.MyCarID = carID;
@@ -138,6 +147,7 @@ public class ButtonManager : SingleTon<ButtonManager>
         GameManager.Instance.MyMapID = mapID;
         Debug.Log("Map : " + mapID + " Selected");
     }
+    #endregion
     public void Load(int SceneID) // Load the scene by build index
     {
         SceneManager.LoadScene(SceneID);

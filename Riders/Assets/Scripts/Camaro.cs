@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Camaro : Car // FR
 {
-    protected override void Init()
+    protected override void Init() // This Car's Own Values
     {
         MaxVelocity = 288f;
         MaxWheelAngle = 45;
@@ -21,7 +21,7 @@ public class Camaro : Car // FR
         InitConstValue();
         InitRRSkidMarks();
         InitBrakeLight();
-    }
+    } // Initialize
     private void FixedUpdate()
     {
         //G29Control();
@@ -35,5 +35,5 @@ public class Camaro : Car // FR
         MoveVisualWheel(Wheels[1].Right_Wheel);
 
         GUIUpdate();
-    }
+    } // Movement
 }

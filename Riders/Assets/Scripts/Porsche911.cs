@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Porsche911 : Car // RR
 {
-    protected override void Init()
+    protected override void Init() // This Car's Own Values
     {
         MaxVelocity = 293f;
         MaxWheelAngle = 45;

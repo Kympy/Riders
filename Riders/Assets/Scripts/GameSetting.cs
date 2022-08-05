@@ -12,5 +12,4 @@ public class GameSetting : SingleTon<GameSetting>
     [SerializeField]
     private int currentController = 0;
     public int CurrentController { get { return currentController; } set { currentController = value; } }
-
 }
