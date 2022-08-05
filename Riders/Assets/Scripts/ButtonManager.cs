@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 public class ButtonManager : SingleTon<ButtonManager>
 {
      /*
@@ -26,6 +27,10 @@ public class ButtonManager : SingleTon<ButtonManager>
     private Button settingButton = null;
     private Button carButton = null;
     private Button mapButton = null;
+    private TMP_Dropdown DPIdrop = null;
+    private TMP_Dropdown Ctrldrop = null;
+    private List<string> optionName = new List<string>();
+
     // ================= Init Button =========== //
     private void InitMainButton()
     {
@@ -89,10 +94,39 @@ public class ButtonManager : SingleTon<ButtonManager>
     public void InitSettingSceneButton() // Initialize Setting Scene's Button
     {
         InitMainButton();
+        Ctrldrop = GameObject.Find("Controller").GetComponentInChildren<TMP_Dropdown>();
+        DPIdrop = GameObject.Find("DPI").GetComponentInChildren<TMP_Dropdown>();
+
+        optionName.Add("Keyboard");
+        if(LogitechGSDK.LogiIsConnected(0))
+        {
+            optionName.Add("Logitech G29");
+        }
+        AddOptions(Ctrldrop);
+        optionName.Clear();
+
+        optionName.Add("1920 X 1080");
+        optionName.Add("1600 X 900");
+        optionName.Add("1280 X 720");
+        AddOptions(DPIdrop);
+        optionName.Clear();
+
+        Ctrldrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentController = Ctrldrop.value; });
+        DPIdrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentDPI = DPIdrop.value; });
+    }
+    private void AddOptions(TMP_Dropdown drop)
+    {
+        for (int i = 0; i < optionName.Count; i++)
+        {
+            TMP_Dropdown.OptionData options = new TMP_Dropdown.OptionData();
+            options.text = optionName[i];
+            options.image = null;
+            drop.options.Add(options);
+        }
     }
     public void InitGameSceneButton() // Initialize Whole Game Scene's Button
     {
-
+        InitMainButton();
     }
     public void SelectCar(int carID) // When Car Selected, the car ID is saved at the GameManager
     {

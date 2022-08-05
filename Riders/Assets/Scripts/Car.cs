@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class Car : MonoBehaviour // Normal Base Car Class
 {
+    #region 로지텍 컨트롤러
     protected LogitechGSDK.LogiControllerPropertiesData properties; // Logitech Controller
     protected LogitechGSDK.DIJOYSTATE2ENGINES controller;
+    #endregion
     protected class WheelInfo // Left and Right Wheels
     {
         public WheelCollider Left_Wheel;
@@ -49,7 +51,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected GameObject centerOfMass; // Car center of mass
 
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
-    protected List<SkidMark> Skids = new List<SkidMark>(); // Skid Marks List
+    protected SkidMark Skids = new SkidMark(); // Skid Marks
     protected GameObject brakeLight = null; // Back light object
     protected GameObject visualWheel = null; // visual wheels
 
@@ -62,12 +64,30 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Init State Value
     protected virtual void InitKey() 
     {
-        // Init KeyBoard
-        //InputManager.Instance.KeyAction -= KeyBoardControl;
-        //InputManager.Instance.KeyAction += KeyBoardControl;
-        // Init Controller
-        InputManager.Instance.KeyAction -= G29Control;
-        InputManager.Instance.KeyAction += G29Control;
+        switch(GameSetting.Instance.CurrentController)
+        {
+            case 0:
+                {
+                    // Init KeyBoard
+                    InputManager.Instance.KeyAction -= KeyBoardControl;
+                    InputManager.Instance.KeyAction += KeyBoardControl;
+                    break;
+                }
+            case 1:
+                {
+                    // Init Controller
+                    InputManager.Instance.KeyAction -= G29Control;
+                    InputManager.Instance.KeyAction += G29Control;
+                    break;
+                }
+            default:
+                {
+                    // Init KeyBoard
+                    InputManager.Instance.KeyAction -= KeyBoardControl;
+                    InputManager.Instance.KeyAction += KeyBoardControl;
+                    break;
+                }
+        }
     }// Initialize Control Method
     protected virtual void InitGUI()
     {
@@ -99,24 +119,19 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Initialize 4 Wheels
     protected virtual void InitFFSkidMarks()
     {
-        SkidMark FrontSkid = new SkidMark();
-        Skids.Add(FrontSkid);
         // Foward Wheels Skid Marks
-        Skids[0].Left_Skid = GameObject.FindGameObjectWithTag("LFW").GetComponentInChildren<TrailRenderer>(); // Left
-        Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RFW").GetComponentInChildren<TrailRenderer>(); // Right
-        Skids[0].Left_Skid.emitting = false; // Visible false on start
-        Skids[0].Right_Skid.emitting = false;
+        Skids.Left_Skid = GameObject.FindGameObjectWithTag("LFW").GetComponentInChildren<TrailRenderer>(); // Left
+        Skids.Right_Skid = GameObject.FindGameObjectWithTag("RFW").GetComponentInChildren<TrailRenderer>(); // Right
+        Skids.Left_Skid.emitting = false; // Visible false on start
+        Skids.Right_Skid.emitting = false;
     } // Initialize FF Type Skid marks
     protected virtual void InitRRSkidMarks()
     {
-        SkidMark BackSkid = new SkidMark();
-        Skids.Add(BackSkid);
-
         // Foward Wheels Skid Marks
-        Skids[0].Left_Skid = GameObject.FindGameObjectWithTag("LBW").GetComponentInChildren<TrailRenderer>();
-        Skids[0].Right_Skid = GameObject.FindGameObjectWithTag("RBW").GetComponentInChildren<TrailRenderer>();
-        Skids[0].Left_Skid.emitting = false;
-        Skids[0].Right_Skid.emitting = false;
+        Skids.Left_Skid = GameObject.FindGameObjectWithTag("LBW").GetComponentInChildren<TrailRenderer>();
+        Skids.Right_Skid = GameObject.FindGameObjectWithTag("RBW").GetComponentInChildren<TrailRenderer>();
+        Skids.Left_Skid.emitting = false;
+        Skids.Right_Skid.emitting = false;
     }// Initialize RR Type Skid marks
     protected virtual void InitBrakeLight()
     {
@@ -140,25 +155,36 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Move Visual Real Wheel
     protected virtual void KeyBoardControl()
     {
-        Steering = Input.GetAxis("Horizontal") * MaxWheelAngle;
+        Steering = Input.GetAxis("Horizontal") * MaxWheelAngle; // Keyboard Input value
         Motor = Input.GetAxis("Vertical") * MaxMotorPower;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity) // Limit Max Velocity
         {
-            Brake = MaxBrakePower;
+            Debug.Log("max");
             Motor = 0f;
-            Skids[0].Left_Skid.emitting = true;
-            Skids[0].Right_Skid.emitting = true;
-            brakeLight.SetActive(true);
         }
-        else if (Input.GetKey(KeyCode.S)) brakeLight.SetActive(true);
-        else
+
+        if (Input.GetKey(KeyCode.Space)) // When Brake ON
+        {
+            Brake = MaxBrakePower; // Brake
+            Motor = 0f; // Motor is 0
+            if (rigidBody.velocity.magnitude * 3.6f >= 70) // If velocity is over 70, skid marks visible true
+            {
+                Skids.Left_Skid.emitting = true;
+                Skids.Right_Skid.emitting = true;
+            }
+            brakeLight.SetActive(true); // Brake Light ON
+        }
+        else // When Brake OFF
         {
             Brake = 0f;
-            Skids[0].Left_Skid.emitting = false;
-            Skids[0].Right_Skid.emitting = false;
+            Skids.Left_Skid.emitting = false;
+            Skids.Right_Skid.emitting = false;
             brakeLight.SetActive(false);
         }
+
+        if (Input.GetKey(KeyCode.S)) brakeLight.SetActive(true); // When Input S(Back) Brake Light ON
+        else brakeLight.SetActive(false);
 
     } // Keyboard Input
     protected virtual void G29Control()
@@ -224,11 +250,6 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // G29 Input
     protected virtual void FFModeMovement()
     {
-        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
-        {
-            Debug.Log("max");
-            Motor = 0;
-        }
         // ========== FF ========= //
         // Steer
         Wheels[0].Left_Wheel.steerAngle = Steering;
@@ -242,11 +263,6 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // FF Car Setting
     protected virtual void RRModeMovement()
     {
-        if (rigidBody.velocity.magnitude * 3.6f > MaxVelocity)
-        {
-            Debug.Log("max");
-            Motor = 0;
-        }
         // ========== RR ========= //
         // Steer
         Wheels[0].Left_Wheel.steerAngle = Steering;
@@ -266,11 +282,12 @@ public class Car : MonoBehaviour // Normal Base Car Class
         rotationAngle = Mathf.Lerp(0, 315, speedFactor);
 
         arrowPointer.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotationAngle));
-        Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  Velocity : " + rigidBody.velocity.magnitude * 3.6f);
+        //Debug.Log("SteeringAngle : " + Steering + "  MotorTorque : " + Motor + "  BrakePower : " + Brake + "  RPM : " + Wheels[0].Left_Wheel.rpm + "  Velocity : " + rigidBody.velocity.magnitude * 3.6f);
     } // Speedometer Update
     private void OnDestroy()
     {
-        if(LogitechGSDK.LogiIsConnected(0))
+        InputManager.Instance.KeyAction -= KeyBoardControl;
+        if (LogitechGSDK.LogiIsConnected(0))
         {
             Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());
         }

@@ -12,19 +12,21 @@ public class SingleTon<T> : MonoBehaviour where T : class, new()
         {
             if (instance == null)
             {
-                instance = FindObjectOfType(typeof(T)) as T;
+                instance = GameObject.FindObjectOfType(typeof(T)) as T;
                 if(instance == null)
                 {
+                    GameObject obj = new GameObject(typeof(T).ToString(), typeof(T));
                     lock (lockObj)
                     {
-                        GameObject obj = new GameObject(typeof(T).ToString(), typeof(T));
                         instance = obj.GetComponent<T>();
-                        DontDestroyOnLoad(obj);
                     }
                 }
-                return instance;
             }
             return instance;
         }
+    }
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
     }
 }
