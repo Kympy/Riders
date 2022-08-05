@@ -55,12 +55,15 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected GameObject brakeLight = null; // Back light object
     protected GameObject visualWheel = null; // visual wheels
 
+    private int myController = 0;
+
     protected virtual void Init()
     {
         MaxVelocity = 210f;
         MaxWheelAngle = 45;
         MaxMotorPower = 1901f; // It means motorTorque
         MaxBrakePower = 3000f; // Brake
+        myController = GameSetting.Instance.CurrentController; // Get Controller ID
     } // Init State Value
     protected virtual void InitKey() 
     {
@@ -88,7 +91,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
                     break;
                 }
         }
-    }// Initialize Control Method
+    }// Initialize Control Method >>> NOT USE BECAUSE OF THE BUG
     protected virtual void InitGUI()
     {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
@@ -239,15 +242,28 @@ public class Car : MonoBehaviour // Normal Base Car Class
             }
             else brakeLight.SetActive(false);
         }
-        else if (!LogitechGSDK.LogiIsConnected(0))
+        else if (!LogitechGSDK.LogiIsConnected(0) && GameSetting.Instance.CurrentController == 1)
         {
             Debug.Log("LOGITECH DEVICE NOT CONNECTED");
         }
         else
         {
+            if(GameSetting.Instance.CurrentController == 1)
             Debug.Log("Device Connected, but some errors occured");
         }
     } // G29 Input
+    protected virtual void Movement() // Total Movement by my Controller ID
+    {
+        if(GameManager.Instance.IsGaming) // When Input is enabled
+        {
+            switch (myController) // controller type
+            {
+                case 0: { KeyBoardControl(); break; }
+                case 1: { G29Control(); break; }
+                default: { KeyBoardControl(); break; } // default : keyboard
+            }
+        }
+    }
     protected virtual void FFModeMovement()
     {
         // ========== FF ========= //
@@ -286,7 +302,6 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Speedometer Update
     private void OnDestroy()
     {
-        InputManager.Instance.KeyAction -= KeyBoardControl;
         if (LogitechGSDK.LogiIsConnected(0))
         {
             Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());

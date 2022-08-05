@@ -3035,7 +3035,7 @@ GameObject:
   - component: {fileID: 5442376981346018626}
   - component: {fileID: 6365893868919407181}
   m_Layer: 0
-  m_Name: Porsche911
+  m_Name: Porsche 911 Carrera
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

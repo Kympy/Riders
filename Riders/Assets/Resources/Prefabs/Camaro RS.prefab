@@ -8118,7 +8118,7 @@ GameObject:
   - component: {fileID: 3707813004312875746}
   - component: {fileID: 3438370391668881811}
   m_Layer: 0
-  m_Name: Camaro
+  m_Name: Camaro RS
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

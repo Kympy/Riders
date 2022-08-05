@@ -14,7 +14,7 @@ public class Porsche911 : Car // RR
     private void Awake()
     {
         Init();
-        InitKey();
+        //InitKey();
         InitGUI();
         RigidBodySetUp();
         InitWheel();
@@ -24,8 +24,9 @@ public class Porsche911 : Car // RR
     }
     private void FixedUpdate()
     {
-        G29Control();
+        //G29Control();
         //KeyBoardControl();
+        Movement();
         RRModeMovement();
 
         MoveVisualWheel(Wheels[0].Left_Wheel);

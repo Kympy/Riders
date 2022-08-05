@@ -16,6 +16,7 @@ public class GameManager : SingleTon<GameManager>
     // ========= Game Control Variable ===== //
     [SerializeField]
     private bool isGaming = false; // Use To Control Key Input Update
+    public bool IsGaming { get { return isGaming; } }
     private bool isFullScreen = true; // Use to window setting
     private bool FirstLap = false; // Use to when finish lap
     public bool isFirstLap { get { return FirstLap; } set { FirstLap = value; } }
@@ -39,6 +40,7 @@ public class GameManager : SingleTon<GameManager>
     private int SelectedMapID = 0; // My map Index
     public int MyMapID { get { return SelectedMapID; } set { SelectedMapID = value; } }
 
+    private RecordManager record = new RecordManager();
     public void InitAwake()
     {
         InitDPI();
@@ -47,10 +49,12 @@ public class GameManager : SingleTon<GameManager>
     }
     private void Update()
     {
+        /*
         if (isGaming) // Update Input Only In Game Scene
         {
             InputManager.Instance.OnUpdate(); // Input Update
         }
+        */
     }
     private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
@@ -88,6 +92,7 @@ public class GameManager : SingleTon<GameManager>
             case 4: // Record Scene
                 {
                     ButtonManager.Instance.InitRecordSceneButton(); // Button Initialize
+                    record.ShowRecord();
                     break;
                 }
             case 5: // Setting Scene
@@ -112,12 +117,12 @@ public class GameManager : SingleTon<GameManager>
         StartTimer = GameObject.Find("StartTimer").GetComponent<TextMeshProUGUI>();
         StartTimer.text = "";
         // Find UI
+        ms = 0; sec = 0; min = 0;
         LapTimer = GameObject.Find("LapTimer").GetComponent<TextMeshProUGUI>();
         LapTimer.text = "LAP : " + min.ToString("00") + ":" + sec.ToString("00") + ":" + ms.ToString("00");
         // Find Player
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Car>();
         timer = 0f; // Init Value
-        ms = 0; sec = 0; min = 0;
         FirstLap = false; FinishLap = false;
         StartCoroutine(CountDown()); // 3 2 1
     }
@@ -167,6 +172,8 @@ public class GameManager : SingleTon<GameManager>
             if (FinishLap)
             {
                 StopCoroutine(LapCycleTimer());
+                record.RecordCount++;
+                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  " + player.gameObject.name);
                 break;
             }
             yield return null;
@@ -189,17 +196,17 @@ public class GameManager : SingleTon<GameManager>
         {
             case 0: // Audi A3
                 {
-                    PlayerPrefab = Resources.Load("Prefabs/AudiA3") as GameObject;
+                    PlayerPrefab = Resources.Load("Prefabs/Audi A3") as GameObject;
                     break;
                 }
             case 1: // Porsche 911
                 {
-                    PlayerPrefab = Resources.Load("Prefabs/Porsche911") as GameObject;
+                    PlayerPrefab = Resources.Load("Prefabs/Porsche 911 Carrera") as GameObject;
                     break;
                 }
             case 2:
                 {
-                    PlayerPrefab = Resources.Load("Prefabs/Camaro") as GameObject;
+                    PlayerPrefab = Resources.Load("Prefabs/Camaro RS") as GameObject;
                     break;
                 }
             default: break;
@@ -207,6 +214,8 @@ public class GameManager : SingleTon<GameManager>
         if (PlayerPrefab != null && GameObject.FindGameObjectWithTag("Player") == null)
         {
             Instantiate(PlayerPrefab, StartPosition.transform.position, StartPosition.transform.rotation);
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Car>();
+            player.gameObject.name = player.gameObject.name.Remove(player.gameObject.name.LastIndexOf("("));
             return;
         }
         else if (PlayerPrefab == null) Debug.LogError("Player Prefab is Null!!");

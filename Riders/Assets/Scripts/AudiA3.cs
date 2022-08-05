@@ -15,7 +15,7 @@ public class AudiA3 : Car // FF
     private void Awake()
     {
         Init();
-        InitKey();
+        //InitKey();
         InitGUI();
         RigidBodySetUp();
         InitWheel();
@@ -25,8 +25,9 @@ public class AudiA3 : Car // FF
     }
     private void FixedUpdate()
     {
-        G29Control();
+        //G29Control();
         //KeyBoardControl();
+        Movement();
         FFModeMovement();
 
         MoveVisualWheel(Wheels[0].Left_Wheel);
