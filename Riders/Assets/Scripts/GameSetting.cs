@@ -12,4 +12,7 @@ public class GameSetting : SingleTon<GameSetting>
     [SerializeField]
     private int currentController = 0;
     public int CurrentController { get { return currentController; } set { currentController = value; } }
+
+    private bool isFullScreen = true; // Use to window setting
+    public bool IsFull { get { return isFullScreen; } set { isFullScreen = value; } }
 }

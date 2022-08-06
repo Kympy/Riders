@@ -30,6 +30,7 @@ public class ButtonManager : SingleTon<ButtonManager>
     private Button settingButton = null;
     private Button carButton = null;
     private Button mapButton = null;
+    private Toggle FullScreen = null;
     private TMP_Dropdown DPIdrop = null;
     private TMP_Dropdown Ctrldrop = null;
     private List<string> optionName = new List<string>(); // Used to Add Dropdown Options
@@ -109,6 +110,7 @@ public class ButtonManager : SingleTon<ButtonManager>
         InitMainButton();
         Ctrldrop = GameObject.Find("Controller").GetComponentInChildren<TMP_Dropdown>();
         DPIdrop = GameObject.Find("DPI").GetComponentInChildren<TMP_Dropdown>();
+        FullScreen = GameObject.Find("Toggle").GetComponent<Toggle>();
 
         optionName.Add("Keyboard");
         LogitechGSDK.LogiSteeringInitialize(false);
@@ -129,9 +131,15 @@ public class ButtonManager : SingleTon<ButtonManager>
         AddOptions(DPIdrop); // Add
         optionName.Clear();
 
+        Ctrldrop.value = GameSetting.Instance.CurrentController;
+        DPIdrop.value = GameSetting.Instance.CurrentDPI;
+        FullScreen.isOn = GameSetting.Instance.IsFull;
+
         Ctrldrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentController = Ctrldrop.value; });
-        DPIdrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentDPI = DPIdrop.value; });
+        DPIdrop.onValueChanged.AddListener(delegate { GameSetting.Instance.CurrentDPI = DPIdrop.value; GameManager.Instance.InitDPI(); });
+        FullScreen.onValueChanged.AddListener(delegate { GameSetting.Instance.IsFull = !GameSetting.Instance.IsFull; GameManager.Instance.InitDPI(); });
     }
+
     private void AddOptions(TMP_Dropdown drop)
     {
         for (int i = 0; i < optionName.Count; i++)

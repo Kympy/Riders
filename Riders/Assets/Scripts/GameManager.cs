@@ -19,7 +19,6 @@ public class GameManager : SingleTon<GameManager>
     [SerializeField]
     private bool isGaming = false; // Use To Control Key Input Update
     public bool IsGaming { get { return isGaming; } }
-    private bool isFullScreen = true; // Use to window setting
     private bool FirstLap = false; // Use to when finish lap
     public bool isFirstLap { get { return FirstLap; } set { FirstLap = value; } }
     private bool FinishLap = false; // Use to when finish lap
@@ -186,7 +185,7 @@ public class GameManager : SingleTon<GameManager>
             {
                 StopCoroutine(LapCycleTimer()); // Stop Lap Time Coroutine
                 record.RecordCount++; // And Plus 1 Record Count
-                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  " + player.gameObject.name); // Save Record at RecordManager Class
+                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  / " + player.gameObject.name); // Save Record at RecordManager Class
                 break; // Break While
             }
             yield return null;
@@ -236,28 +235,28 @@ public class GameManager : SingleTon<GameManager>
         else if (PlayerPrefab == null) Debug.LogError("Player Prefab is Null!!");
         else if (GameObject.FindGameObjectWithTag("Player") != null) Debug.Log("Player is already created.");
     }
-    private void InitDPI() // Set the window size
+    public void InitDPI() // Set the window size
     {
         switch(GameSetting.Instance.CurrentDPI) // Get from Game Setting Class
         {
             case 0: // 1920 1080
                 {
-                    Screen.SetResolution(1920, 1080, isFullScreen); // FHD
+                    Screen.SetResolution(1920, 1080, GameSetting.Instance.IsFull); // FHD
                     break;
                 }
             case 1:
                 {
-                    Screen.SetResolution(1600, 900, isFullScreen); // HD+
+                    Screen.SetResolution(1600, 900, GameSetting.Instance.IsFull); // HD+
                     break;
                 }
             case 2:
                 {
-                    Screen.SetResolution(1280, 720, isFullScreen); // HD
+                    Screen.SetResolution(1280, 720, GameSetting.Instance.IsFull); // HD
                     break;
                 }
             default:
                 {
-                    Screen.SetResolution(1920, 1080, isFullScreen); // Default Value
+                    Screen.SetResolution(1920, 1080, GameSetting.Instance.IsFull); // Default Value
                     break;
                 }
         }
