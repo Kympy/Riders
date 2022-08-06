@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 public class GameManager : SingleTon<GameManager>
 {
-    #region °ÔÀÓ ÇÃ·¹ÀÌ Å¸ÀÌ¸Ó º¯¼ö / Game Play Timer Variables
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ / Game Play Timer Variables
     private float timer = 0f; // Normal Timer
     private WaitForSeconds OneSecond = new WaitForSeconds(1.0f); // 1 sec
     private int threeTime = 3;
@@ -15,7 +15,7 @@ public class GameManager : SingleTon<GameManager>
     private int ms = 0;
     #endregion
 
-    #region °ÔÀÓ ¼³Á¤ & ÁøÇà º¯¼ö / The Variables Game Setting And Play Control
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / The Variables Game Setting And Play Control
     [SerializeField]
     private bool isGaming = false; // Use To Control Key Input Update
     public bool IsGaming { get { return isGaming; } }
@@ -43,7 +43,7 @@ public class GameManager : SingleTon<GameManager>
     private GameObject StartPosition = null; // Player Start Position
     #endregion
 
-    #region °ÔÀÓ ÇÃ·¹ÀÌ UI º¯¼ö / UI Variables
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ / UI Variables
     // ========== Play Info ========== //
     private TextMeshProUGUI StartTimer; // 3 2 1 Go Timer Text
     private TextMeshProUGUI LapTimer; // Count Lap Time
@@ -65,7 +65,7 @@ public class GameManager : SingleTon<GameManager>
         */
     } // Never Use
 
-    #region ¾À º¯°æ¿¡ µû¸¥ ÇÃ·¹ÀÌ Á¤º¸ ÃÊ±âÈ­
+    #region ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Get current scene build index
@@ -138,7 +138,7 @@ public class GameManager : SingleTon<GameManager>
     }
     #endregion
 
-    #region °ÔÀÓ ÇÃ·¹ÀÌ Å¸ÀÌ¸Ó ÄÚ·çÆ¾ / Coroutines about Game Play Timer
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½Ú·ï¿½Æ¾ / Coroutines about Game Play Timer
     private IEnumerator CountDown() // 3, 2, 1, Go Timer
     {
         while(true)

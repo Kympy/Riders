@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Text;
 public class ButtonManager : SingleTon<ButtonManager>
 {
     /*
@@ -21,8 +22,9 @@ public class ButtonManager : SingleTon<ButtonManager>
     2 : Camaro RS
 
      */
-    #region UI ¿ä¼Òµé / UI Elements
+    #region UI ï¿½ï¿½Òµï¿½ / UI Elements
     private Button mainButton = null;
+    private Button resetButton = null;
     private Button exitButton = null;
     private Button recordButton = null;
     private Button settingButton = null;
@@ -33,12 +35,17 @@ public class ButtonManager : SingleTon<ButtonManager>
     private List<string> optionName = new List<string>(); // Used to Add Dropdown Options
     #endregion
 
-    #region °¢°¢ÀÇ ¹öÆ°À» Ã£¾Æ ¸®½º³Ê¸¦ Ãß°¡ / Find My Button And AddListener
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ ï¿½ß°ï¿½ / Find My Button And AddListener
     // ================= Init Button =========== //
     private void InitMainButton()
     {
         mainButton = GameObject.Find("Main").GetComponent<Button>();
         mainButton.onClick.AddListener(() => Load(0));
+    }
+    private void InitResetButton()
+    {
+        resetButton = GameObject.Find("Reset").GetComponent<Button>();
+        resetButton.onClick.AddListener(() => Load(SceneManager.GetActiveScene().buildIndex));
     }
     private void InitExitButton()
     {
@@ -67,7 +74,7 @@ public class ButtonManager : SingleTon<ButtonManager>
     }
     #endregion
 
-    #region °¢°¢ÀÇ ¾À ¸¶´Ù ÇÊ¿äÇÑ ¹öÆ°µéÀ» ÃÊ±âÈ­ / Initialize All Buttons On Each Scene
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ / Initialize All Buttons On Each Scene
     // ==================== Called at GameManager When Scene Changed ====== //
     public void InitMainSceneButton() // Initialize Main Scene's Buttons
     {
@@ -104,9 +111,14 @@ public class ButtonManager : SingleTon<ButtonManager>
         DPIdrop = GameObject.Find("DPI").GetComponentInChildren<TMP_Dropdown>();
 
         optionName.Add("Keyboard");
-        if(LogitechGSDK.LogiIsConnected(0))
+        LogitechGSDK.LogiSteeringInitialize(false);
+        Debug.Log(LogitechGSDK.LogiIsConnected(0));
+        if (LogitechGSDK.LogiIsConnected(0))
         {
-            optionName.Add("Logitech G29");
+            StringBuilder deviceName = new StringBuilder(256);
+            LogitechGSDK.LogiGetFriendlyProductName(0, deviceName, 256);
+            Debug.Log("Logi Connected");
+            optionName.Add(deviceName.ToString());
         }
         AddOptions(Ctrldrop); // Add
         optionName.Clear();
@@ -133,10 +145,11 @@ public class ButtonManager : SingleTon<ButtonManager>
     public void InitGameSceneButton() // Initialize Whole Game Scene's Button
     {
         InitMainButton();
+        InitResetButton();
     }
     #endregion
 
-    #region ÀÚµ¿Â÷¿Í ¸Ê ¼±ÅÃ Á¤º¸ ÀúÀå / Save the ID of Car And Map
+    #region ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / Save the ID of Car And Map
     public void SelectCar(int carID) // When Car Selected, the car ID is saved at the GameManager
     {
         GameManager.Instance.MyCarID = carID;

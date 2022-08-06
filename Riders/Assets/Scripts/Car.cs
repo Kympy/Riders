@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class Car : MonoBehaviour // Normal Base Car Class
 {
-    #region ·ÎÁöÅØ G29 ÄÁÆ®·Ñ·¯ / Logitech G29 Controller
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ G29 ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ / Logitech G29 Controller
     protected LogitechGSDK.LogiControllerPropertiesData properties; // Logitech Controller
     protected LogitechGSDK.DIJOYSTATE2ENGINES controller;
     #endregion
 
-    #region ÁÂ, ¿ì ¹ÙÄû / Left, Right Wheel
+    #region ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / Left, Right Wheel
     protected class WheelInfo // Left and Right Wheels
     {
         public WheelCollider Left_Wheel;
@@ -19,7 +19,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }
     #endregion
 
-    #region ÁÂ, ¿ì ¹ÙÄûÀÚ±¹ / Left, Right Skid Mark
+    #region ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ / Left, Right Skid Mark
     protected class SkidMark // Left and Right Skid Marks
     {
         public TrailRenderer Left_Skid;
@@ -27,7 +27,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }
     #endregion
 
-    #region ÀÚµ¿Â÷ ¿òÁ÷ÀÓ º¯¼ö / Car Movement Values
+    #region ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / Car Movement Values
     protected float Steering = 0f; // Handle Angle
     protected float Motor = 0f; // Motor Power
     protected float Brake = 0f; // Brake Power
@@ -36,14 +36,14 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected bool BackGear = false; // Rear Gear
     #endregion
 
-    #region ¿òÁ÷ÀÓ º¯¼öÀÇ ÃÖ´ë °ª / Maximum Movement Values
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ / Maximum Movement Values
     protected int MaxWheelAngle = 45; // Wheels can rotate between maximum value
     protected float MaxMotorPower = 1901f; // It means motorTorque
     protected float MaxBrakePower = 3000f; // Brake Maximum power
     protected float MaxVelocity = 210f; // Max speed km/s
     #endregion
 
-    #region ÄÁÆ®·Ñ·¯ ÀÔ·Â °ªÀ» »ç¿ëÇÏ±â À§ÇÑ »ó¼ö / The Const Value For Using Controller
+    #region ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ / The Const Value For Using Controller
     protected int MaxHandleAngle = 450; // G29 Real Controller Max Angle (One Side)
     protected float Int2HandleAngle; // Int => Handle Angle
     protected float Handle2WheelAngle; // Handle Angle => Wheel Angle
@@ -51,44 +51,41 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected float Int2Brake; // Int => Brake pedal value
     #endregion
 
-    #region ºñÁÖ¾ó ÈÙ ±¸µ¿À» À§ÇÑ ÈÙ ÄÝ¶óÀÌ´õ Á¤º¸ / Wheel Collider Pos, Rot For Visual Wheel Movement
+    #region ï¿½ï¿½ï¿½Ö¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ / Wheel Collider Pos, Rot For Visual Wheel Movement
     protected Vector3 colliderWorldPos; // Wheel collider position
     protected Quaternion colliderWorldRot; // Wheel collider rotation
     #endregion
 
-    #region ¼Óµµ°è ÀÛµ¿ º¯¼ö / Speedometer Variables
+    #region ï¿½Óµï¿½ï¿½ï¿½ ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ / Speedometer Variables
     protected float speedFactor = 0f; // current speed / max speed => percentage
     protected float rotationAngle = 0f; // speedometer arrow pointer angle
     protected Image arrowPointer; // GUI Arrow
     protected TextMeshProUGUI speedUI; // Display Velocity GUI
     #endregion
 
-    #region ÀÚµ¿Â÷ÀÇ ¹°¸® º¯¼ö / The Variable Of Car Rigidbody
+    #region ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / The Variable Of Car Rigidbody
     protected Rigidbody rigidBody; // Car rigidbody
     public Rigidbody GetRigidbody { get { return rigidBody; } }
     protected GameObject centerOfMass; // Car center of mass
     #endregion
 
-    #region ÀÚµ¿Â÷ ±¸¼º¿ä¼Ò ¸ñ·Ï / Lists Of The Car Component
+    #region ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ / Lists Of The Car Component
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
     protected SkidMark Skids = new SkidMark(); // Skid Marks
     protected GameObject brakeLight = null; // Back light object
     protected GameObject visualWheel = null; // visual wheels
     #endregion
 
-    private int myController = 0; // My Controller ID >> Will Set By GameSetting Class
-
-    #region ÀÚµ¿Â÷ÀÇ ±âº» ¼Ó¼º ÃÊ±âÈ­, ¿ÀºêÁ§Æ® ÃÊ±âÈ­, º¯¼ö ÃÊ±âÈ­ / Initialize Base Information Called Only Once
+    #region ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½Ó¼ï¿½ ï¿½Ê±ï¿½È­, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­, ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ / Initialize Base Information Called Only Once
     protected virtual void Init()
     {
         MaxVelocity = 210f;
         MaxWheelAngle = 45;
         MaxMotorPower = 1901f; // It means motorTorque
         MaxBrakePower = 3000f; // Brake
-        myController = GameSetting.Instance.CurrentController; // Get Controller ID
     } // Init State Value
 
-    #region »ç¿ë¾ÈÇÔ / Never Use
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ / Never Use
     /*
     protected virtual void InitKey() 
     {
@@ -178,7 +175,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     } // Initalize some values used on G29 Wheel
     #endregion
 
-    #region ÄÁÆ®·Ñ Å¸ÀÔ¿¡ µû¸¥ ÀÚµ¿Â÷¿¡ ½ÇÁ¦ ¿òÁ÷ÀÓ ±¸Çö / The Real Car Movement Operated By My Controller
+    #region ï¿½ï¿½Æ®ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / The Real Car Movement Operated By My Controller
     protected virtual void MoveVisualWheel(WheelCollider wheel)
     {
         wheel.GetWorldPose(out colliderWorldPos, out colliderWorldRot);
@@ -201,7 +198,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
         {
             Brake = MaxBrakePower; // Brake
             Motor = 0f; // Motor is 0
-            if (rigidBody.velocity.magnitude * 3.6f >= 70) // If velocity is over 70, skid marks visible true
+            if (rigidBody.velocity.magnitude * 3.6f > 70) // If velocity is over 70, skid marks visible true
             {
                 Skids.Left_Skid.emitting = true;
                 Skids.Right_Skid.emitting = true;
@@ -269,8 +266,18 @@ public class Car : MonoBehaviour // Normal Base Car Class
             if (Brake > 0.1f) // If Brake ON
             {
                 brakeLight.SetActive(true); // BackLight ON
+                if (rigidBody.velocity.magnitude * 3.6f > 70)
+                {
+                    Skids.Left_Skid.emitting = true;
+                    Skids.Right_Skid.emitting = true;
+                }
             }
-            else brakeLight.SetActive(false);
+            else
+            {
+                brakeLight.SetActive(false);
+                Skids.Left_Skid.emitting = false;
+                Skids.Right_Skid.emitting = false;
+            }
         }
         else if (!LogitechGSDK.LogiIsConnected(0) && GameSetting.Instance.CurrentController == 1)
         {
@@ -286,7 +293,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     {
         if(GameManager.Instance.IsGaming) // When Input is enabled
         {
-            switch (myController) // controller type
+            switch (GameSetting.Instance.CurrentController) // controller type
             {
                 case 0: { KeyBoardControl(); break; }
                 case 1: { G29Control(); break; }
@@ -322,7 +329,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }// RR Car Setting
     #endregion
 
-    #region ¼Óµµ°è UI °ü·Ã ¾÷µ¥ÀÌÆ® / Speedometer Update Function
+    #region ï¿½Óµï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® / Speedometer Update Function
     protected virtual void GUIUpdate()
     {
         myVeloctiy = rigidBody.velocity.magnitude * 3.6f; // Convert m/s -> km/s with multiply 3.6
