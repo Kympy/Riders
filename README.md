@@ -2,12 +2,6 @@
 
 ---
 
-- ***GitHub Repository***
-    
-    [https://github.com/Kympy/Riders](https://github.com/Kympy/Riders)
-    
-
- **바로가기**
 
 ## 1. 개요
 
