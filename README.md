@@ -422,7 +422,7 @@ arrowPointer.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rota
 
 이를 위해 적용한 연산은 다음과 같다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/59f57696-4937-47de-9ca5-599410898048/Untitled.png)
+![image](https://user-images.githubusercontent.com/65384983/206629243-adeff6d0-b777-4eb9-8882-d7d52093f78c.png)
 
 해당 과정을 거치면 모든 페달로부터 **0 ~ MaxPower** 사이의 값을 구할 수 있다.
 
@@ -442,7 +442,7 @@ Brake = Mathf.Round((-controller.lRz + Mathf.Abs(controller.lRz)) / Int2Brake); 
 
 전환하는 과정이 필요하다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/806c916d-554a-49e1-92e6-2a5b8c5ca12b/Untitled.png)
+![image](https://user-images.githubusercontent.com/65384983/206629273-9a5d9663-ab11-4b5e-9825-9e55cac117bc.png)
 
 자동차 바퀴의 최대 조향 각도는 **-45º ~ 45º** 이므로 MaxSteer를 45로 설정하고, G29 휠의 최대
 
