@@ -1,6 +1,3 @@
-# Riders
-Unity Car simulator
-
 # Racing Simulator : 자동차 시뮬레이터 (2022.08.02) <중규모>
 
 ---
