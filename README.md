@@ -494,15 +494,6 @@ if (controller.rgbButtons[12] != 128 && controller.rgbButtons[18] != 128) // Gea
 
 여기서, **12번을 전진(D)**, **18번을 후진(R)**, 전진도 후진도 아닌 상태를 **중립(N)** 으로 사용하였다.
 
-**간단 비교**
-
-![키보드 입력](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/138c7f6a-4336-4fe1-b6c2-7c54d572ade9/key.gif)
-
-키보드 입력
-
-![휠 컨트롤러 입력](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b369268-7469-4001-9336-400471bdbc30/G29.gif)
-
-휠 컨트롤러 입력
 
 ---
 
@@ -510,6 +501,8 @@ if (controller.rgbButtons[12] != 128 && controller.rgbButtons[18] != 128) // Gea
 
 ---
 
-[https://youtu.be/9fb-_Vwi5X0](https://youtu.be/9fb-_Vwi5X0)
+https://youtu.be/9fb-_Vwi5X0
 
 - **휠 주행 영상**
+---
+https://youtu.be/kImAG1fVpnA
