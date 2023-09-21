@@ -38,3 +38,5 @@ relative/path/*.txt text eol-lf
 *.obj linguist-vendored
 *.fbx linguist-vendored
 *.unity linguist-vendored
+*.pdf linguist-vendored
+*.html linguist-vendored
