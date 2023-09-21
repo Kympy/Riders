@@ -40,3 +40,4 @@ relative/path/*.txt text eol-lf
 *.unity linguist-vendored
 *.pdf linguist-vendored
 *.html linguist-vendored
+*.wav linguist-vendored
