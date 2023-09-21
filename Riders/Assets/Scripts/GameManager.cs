@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 public class GameManager : SingleTon<GameManager>
 {
-    #region ���� �÷��� Ÿ�̸� ���� / Game Play Timer Variables
+    #region 게임 플레이 시간 관련
     private float timer = 0f; // Normal Timer
     private WaitForSeconds OneSecond = new WaitForSeconds(1.0f); // 1 sec
     private int threeTime = 3;
@@ -15,7 +15,7 @@ public class GameManager : SingleTon<GameManager>
     private int ms = 0;
     #endregion
 
-    #region ���� ���� & ���� ���� / The Variables Game Setting And Play Control
+    #region 게임 플레이 관련
     [SerializeField]
     private bool isGaming = false; // Use To Control Key Input Update
     public bool IsGaming { get { return isGaming; } }
@@ -42,7 +42,7 @@ public class GameManager : SingleTon<GameManager>
     private GameObject StartPosition = null; // Player Start Position
     #endregion
 
-    #region ���� �÷��� UI ���� / UI Variables
+    #region UI 관련
     // ========== Play Info ========== //
     private TextMeshProUGUI StartTimer; // 3 2 1 Go Timer Text
     private TextMeshProUGUI LapTimer; // Count Lap Time
@@ -54,17 +54,8 @@ public class GameManager : SingleTon<GameManager>
         SceneManager.activeSceneChanged -= WhenSceneChanged;
         SceneManager.activeSceneChanged += WhenSceneChanged; // Scene Change Event Called Once
     } // Add Scene Change Event & Init Window
-    private void Update()
-    {
-        /*
-        if (isGaming) // Update Input Only In Game Scene
-        {
-            InputManager.Instance.OnUpdate(); // Input Update
-        }
-        */
-    } // Never Use
 
-    #region �� ���濡 ���� �÷��� ���� �ʱ�ȭ
+    #region 씬 변경 시
     private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Get current scene build index
@@ -137,7 +128,7 @@ public class GameManager : SingleTon<GameManager>
     }
     #endregion
 
-    #region ���� �÷��� Ÿ�̸� �ڷ�ƾ / Coroutines about Game Play Timer
+    #region 게임 플레이 타이머 코루틴
     private IEnumerator CountDown() // 3, 2, 1, Go Timer
     {
         while(true)
