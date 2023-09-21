@@ -1,17 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Car : MonoBehaviour // Normal Base Car Class
 {
-    #region ������ G29 ��Ʈ�ѷ� / Logitech G29 Controller
+    #region Logitech G29 Controller
     protected LogitechGSDK.LogiControllerPropertiesData properties; // Logitech Controller
     protected LogitechGSDK.DIJOYSTATE2ENGINES controller;
     #endregion
 
-    #region ��, �� ���� / Left, Right Wheel
+    #region Left, Right Wheel
     protected class WheelInfo // Left and Right Wheels
     {
         public WheelCollider Left_Wheel;
@@ -19,7 +18,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }
     #endregion
 
-    #region ��, �� �����ڱ� / Left, Right Skid Mark
+    #region Left, Right Skid Mark
     protected class SkidMark // Left and Right Skid Marks
     {
         public TrailRenderer Left_Skid;
@@ -27,7 +26,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }
     #endregion
 
-    #region �ڵ��� ������ ���� / Car Movement Values
+    #region Car Movement Values
     protected float Steering = 0f; // Handle Angle
     protected float Motor = 0f; // Motor Power
     protected float Brake = 0f; // Brake Power
@@ -36,14 +35,14 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected bool BackGear = false; // Rear Gear
     #endregion
 
-    #region ������ ������ �ִ� �� / Maximum Movement Values
+    #region Maximum Movement Values
     protected int MaxWheelAngle = 45; // Wheels can rotate between maximum value
     protected float MaxMotorPower = 1901f; // It means motorTorque
     protected float MaxBrakePower = 3000f; // Brake Maximum power
     protected float MaxVelocity = 210f; // Max speed km/s
     #endregion
 
-    #region ��Ʈ�ѷ� �Է� ���� ����ϱ� ���� ��� / The Const Value For Using Controller
+    #region The Const Value For Using Controller
     protected int MaxHandleAngle = 450; // G29 Real Controller Max Angle (One Side)
     protected float Int2HandleAngle; // Int => Handle Angle
     protected float Handle2WheelAngle; // Handle Angle => Wheel Angle
@@ -51,82 +50,52 @@ public class Car : MonoBehaviour // Normal Base Car Class
     protected float Int2Brake; // Int => Brake pedal value
     #endregion
 
-    #region ���־� �� ������ ���� �� �ݶ��̴� ���� / Wheel Collider Pos, Rot For Visual Wheel Movement
+    #region Wheel Collider Pos, Rot For Visual Wheel Movement
     protected Vector3 colliderWorldPos; // Wheel collider position
     protected Quaternion colliderWorldRot; // Wheel collider rotation
     #endregion
 
-    #region �ӵ��� �۵� ���� / Speedometer Variables
+    #region Speedometer Variables
     protected float speedFactor = 0f; // current speed / max speed => percentage
     protected float rotationAngle = 0f; // speedometer arrow pointer angle
     protected Image arrowPointer; // GUI Arrow
     protected TextMeshProUGUI speedUI; // Display Velocity GUI
     #endregion
 
-    #region �ڵ����� ���� ���� / The Variable Of Car Rigidbody
+    #region The Variable Of Car Rigidbody
     protected Rigidbody rigidBody; // Car rigidbody
     public Rigidbody GetRigidbody { get { return rigidBody; } }
     protected GameObject centerOfMass; // Car center of mass
     #endregion
 
-    #region �ڵ��� ������� ��� / Lists Of The Car Component
+    #region Lists Of The Car Component
     protected List<WheelInfo> Wheels = new List<WheelInfo>(); // Wheels List
     protected SkidMark Skids = new SkidMark(); // Skid Marks
     protected GameObject brakeLight = null; // Back light object
     protected GameObject visualWheel = null; // visual wheels
     #endregion
 
-    #region �ڵ����� �⺻ �Ӽ� �ʱ�ȭ, ������Ʈ �ʱ�ȭ, ���� �ʱ�ȭ / Initialize Base Information Called Only Once
+
+    #region Initialize Base Information Called Only Once
     protected virtual void Init()
     {
         MaxVelocity = 210f;
         MaxWheelAngle = 45;
         MaxMotorPower = 1901f; // It means motorTorque
         MaxBrakePower = 3000f; // Brake
-    } // Init State Value
-
-    #region ������ / Never Use
-    /*
-    protected virtual void InitKey() 
-    {
-        switch(GameSetting.Instance.CurrentController)
-        {
-            case 0:
-                {
-                    // Init KeyBoard
-                    InputManager.Instance.KeyAction -= KeyBoardControl;
-                    InputManager.Instance.KeyAction += KeyBoardControl;
-                    break;
-                }
-            case 1:
-                {
-                    // Init Controller
-                    InputManager.Instance.KeyAction -= G29Control;
-                    InputManager.Instance.KeyAction += G29Control;
-                    break;
-                }
-            default:
-                {
-                    // Init KeyBoard
-                    InputManager.Instance.KeyAction -= KeyBoardControl;
-                    InputManager.Instance.KeyAction += KeyBoardControl;
-                    break;
-                }
-        }
-    }// Initialize Control Method >>> NOT USE BECAUSE OF THE BUG
-    */
+    }
     #endregion
     protected virtual void InitGUI()
     {
         speedUI = GameObject.Find("Speed").GetComponent<TextMeshProUGUI>();
         arrowPointer = GameObject.Find("Arrow").GetComponent<Image>();
-    } //Init GUI
+    }
     protected virtual void RigidBodySetUp()
     {
         rigidBody = GetComponent<Rigidbody>();
         centerOfMass = GameObject.FindGameObjectWithTag("CM").gameObject;
         rigidBody.centerOfMass = centerOfMass.transform.localPosition;
-    } // Get Rigidbody and center of mass
+    }
     protected virtual void InitWheel()
     {
         LogitechGSDK.LogiSteeringInitialize(false);
@@ -165,7 +134,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
         // Brake BackLight
         brakeLight = GameObject.FindGameObjectWithTag("BackLight");
         brakeLight.SetActive(false);
-    } // Initialize Brake Light
+    }
     protected virtual void InitConstValue()
     {
         Int2HandleAngle = 32767f / MaxHandleAngle; // 32767 / 450 >> Convert Int to Handle Degree
@@ -173,9 +142,8 @@ public class Car : MonoBehaviour // Normal Base Car Class
         Int2Throttle = 65534 / MaxMotorPower; // Convert Int to Throttle pedal value
         Int2Brake = 65534 / MaxBrakePower; // Convert Int to Brake pedal value
     } // Initalize some values used on G29 Wheel
-    #endregion
 
-    #region ��Ʈ�� Ÿ�Կ� ���� �ڵ����� ���� ������ ���� / The Real Car Movement Operated By My Controller
+    #region The Real Car Movement Operated By My Controller
     protected virtual void MoveVisualWheel(WheelCollider wheel)
     {
         wheel.GetWorldPose(out colliderWorldPos, out colliderWorldRot);
@@ -329,7 +297,7 @@ public class Car : MonoBehaviour // Normal Base Car Class
     }// RR Car Setting
     #endregion
 
-    #region �ӵ��� UI ���� ������Ʈ / Speedometer Update Function
+    #region Speedometer Update Function
     protected virtual void GUIUpdate()
     {
         myVeloctiy = rigidBody.velocity.magnitude * 3.6f; // Convert m/s -> km/s with multiply 3.6

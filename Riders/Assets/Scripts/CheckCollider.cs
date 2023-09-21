@@ -8,7 +8,7 @@ public class CheckCollider : MonoBehaviour
     {
         if(other.gameObject.tag == "Player") // Is Player?
         {
-            switch(GameManager.Instance.MySceneIndex) // Which Map?
+            switch(GameManager.Instance.CurrentSceneIndex) // Which Map?
             {
                 case 2: // Straight Scene
                     {
@@ -17,15 +17,15 @@ public class CheckCollider : MonoBehaviour
                     }
                 case 3: // Dirt Scene
                     {
-                        if (GameManager.Instance.isFirstLap == false) // Start Lap
+                        if (GameManager.Instance.IsFirstLap == false) // Start Lap
                         {
                             StartCoroutine(GameManager.Instance.LapCycleTimer());
-                            GameManager.Instance.isFirstLap = true;
+                            GameManager.Instance.IsFirstLap = true;
                             Debug.Log("LAP START!!");
                         }
                         else // Finish Lap
                         {
-                            GameManager.Instance.isFinishLap = true;
+                            GameManager.Instance.IsFinishLap = true;
                             Debug.Log("LAP FINISH!!");
                         }
                         break;

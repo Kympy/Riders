@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 public class GameManager : SingleTon<GameManager>
 {
     #region 게임 플레이 시간 관련
@@ -16,17 +14,12 @@ public class GameManager : SingleTon<GameManager>
     #endregion
 
     #region 게임 플레이 관련
-    [SerializeField]
-    private bool isGaming = false; // Use To Control Key Input Update
-    public bool IsGaming { get { return isGaming; } }
-    private bool FirstLap = false; // Use to when finish lap
-    public bool isFirstLap { get { return FirstLap; } set { FirstLap = value; } }
-    private bool FinishLap = false; // Use to when finish lap
-    public bool isFinishLap { get { return FinishLap; } set { FinishLap = value; } }
+    public bool IsGaming { get; private set; } = false; // Use To Control Key Input Update
+
+    public bool IsFirstLap = false; // Use to when finish lap
+    public bool IsFinishLap = false; // Use to when finish lap
     // ===========ID Info ========== //
-    [SerializeField]
-    private int CurrentSceneIndex = 0; // Get Current Scene Build Index
-    public int MySceneIndex { get { return CurrentSceneIndex; } set { CurrentSceneIndex = value; } }
+    public int CurrentSceneIndex = 0; // Get Current Scene Build Index
     [SerializeField]
     private int SelectedCarID = 1; // My car index
     public int MyCarID { get { return SelectedCarID; } set { SelectedCarID = value; } }
@@ -53,14 +46,14 @@ public class GameManager : SingleTon<GameManager>
         InitDPI(); // Window Size
         SceneManager.activeSceneChanged -= WhenSceneChanged;
         SceneManager.activeSceneChanged += WhenSceneChanged; // Scene Change Event Called Once
-    } // Add Scene Change Event & Init Window
+    }
 
     #region 씬 변경 시
     private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Get current scene build index
         Debug.Log("SceneChanged! : " + CurrentSceneIndex);
-        isGaming = false; // Init Values to NULL
+        IsGaming = false; // Init Values to NULL
         player = null; // Init Values to NULL
         switch (CurrentSceneIndex) // Loaded Scene Initialize (Buttons, UI, Selected Car Prefab)
         {
@@ -123,7 +116,7 @@ public class GameManager : SingleTon<GameManager>
         // Find Player
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Car>();
         timer = 0f; // Init Value
-        FirstLap = false; FinishLap = false;
+        IsFirstLap = false; IsFinishLap = false;
         StartCoroutine(CountDown()); // 3 2 1
     }
     #endregion
@@ -137,7 +130,7 @@ public class GameManager : SingleTon<GameManager>
             if (threeTime == 0)
             {
                 StartTimer.text = "GO";
-                isGaming = true; // Enable Key Input
+                IsGaming = true; // Enable Key Input
                 threeTime--;
             }
             else if(threeTime < 0)
@@ -172,7 +165,7 @@ public class GameManager : SingleTon<GameManager>
     {
         while(true)
         {
-            if (FinishLap) // When Finish Lap
+            if (IsFinishLap) // When Finish Lap
             {
                 StopCoroutine(LapCycleTimer()); // Stop Lap Time Coroutine
                 record.RecordCount++; // And Plus 1 Record Count

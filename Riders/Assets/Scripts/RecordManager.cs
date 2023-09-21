@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class RecordManager
 {
@@ -24,7 +23,7 @@ public class RecordManager
             recordText.text = "";
             for (int i = 0; i < dirtRecord.Count; i++)
             {
-                recordText.text += (dirtRecord[i] + "\n"); // Print Record
+                recordText.text += ($"{dirtRecord[i]} \n"); // Print Record
             }
         }
     }
