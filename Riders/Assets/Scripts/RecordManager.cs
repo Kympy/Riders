@@ -1,30 +1,60 @@
-using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
 public class RecordManager
 {
-    private List<string> dirtRecord = new List<string>();
-    public List<string> DirtRecord { get { return dirtRecord; } set { dirtRecord = value; } }
-    private int recordCount = 0; // How Many Record Available?
-    public int RecordCount { get { return recordCount; } set { recordCount = value; } }
-
     private TextMeshProUGUI recordText;
     public void ShowRecord() // Display Lap Time On Text Box
     {
         recordText = GameObject.Find("DirtRecordText").GetComponent<TextMeshProUGUI>();
         recordText.text = "";
-        if(dirtRecord.Count == 0) // When Record Count Is Zero
+        if(GetRecordCount() == 0) // When Record Count Is Zero
         {
             recordText.text = "NO RECORD";
         }
         else // At Least One Record Available
         {
             recordText.text = "";
-            for (int i = 0; i < dirtRecord.Count; i++)
-            {
-                recordText.text += ($"{dirtRecord[i]} \n"); // Print Record
-            }
+			if (PlayerPrefs.HasKey(RecordDataKey) == true)
+			{
+                builder.Clear();
+				builder.Append(PlayerPrefs.GetString(RecordDataKey));
+				string[] records = builder.ToString().Split(Devider);
+				for (int i = 0; i < records.Length; i++)
+				{
+					recordText.text += ($"{records[i]} \n"); // Print Record
+				}
+			}
         }
     }
+    public const string RecordDataKey = "Records";
+    private const char Devider = '$';
+    private StringBuilder builder = new StringBuilder();
+    public void AddRecord(string record)
+    {
+        builder.Clear();
+        if (PlayerPrefs.HasKey(RecordDataKey) == true)
+        {
+            builder.Append(PlayerPrefs.GetString(RecordDataKey));
+        }
+        builder.Append(GetRecordCount() + 1);
+        builder.Append(" / ");
+        builder.Append(record);
+        builder.Append(Devider);
+        PlayerPrefs.SetString(RecordDataKey, builder.ToString());
+    }
+    public int GetRecordCount()
+    {
+		builder.Clear();
+        if (PlayerPrefs.HasKey(RecordDataKey) == true)
+        {
+            builder.Append(PlayerPrefs.GetString(RecordDataKey));
+            return builder.ToString().Split(Devider).Length;
+        }
+        else
+        {
+            return 0;
+        }
+	}
 }

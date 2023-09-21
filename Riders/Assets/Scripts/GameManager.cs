@@ -47,9 +47,22 @@ public class GameManager : SingleTon<GameManager>
         SceneManager.activeSceneChanged -= WhenSceneChanged;
         SceneManager.activeSceneChanged += WhenSceneChanged; // Scene Change Event Called Once
     }
+	private void Update()
+	{
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.L))
+        {
+            if (PlayerPrefs.HasKey(RecordManager.RecordDataKey) == true)
+            {
+                PlayerPrefs.DeleteKey(RecordManager.RecordDataKey);
+                Debug.Log("Cheat : Deleted previous record registry.");
+            }
+        }
+#endif
+    }
 
-    #region 씬 변경 시
-    private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
+	#region 씬 변경 시
+	private void WhenSceneChanged(Scene previous, Scene now) // When Scene Changed, Called only once.
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Get current scene build index
         Debug.Log("SceneChanged! : " + CurrentSceneIndex);
@@ -168,8 +181,8 @@ public class GameManager : SingleTon<GameManager>
             if (IsFinishLap) // When Finish Lap
             {
                 StopCoroutine(LapCycleTimer()); // Stop Lap Time Coroutine
-                record.RecordCount++; // And Plus 1 Record Count
-                record.DirtRecord.Add(record.RecordCount + "  " + LapTimer.text + "  / " + player.gameObject.name); // Save Record at RecordManager Class
+                //record.RecordCount++; // And Plus 1 Record Count
+                record.AddRecord(LapTimer.text + " / " + player.gameObject.name); // Save Record at RecordManager Class
                 break; // Break While
             }
             yield return null;
